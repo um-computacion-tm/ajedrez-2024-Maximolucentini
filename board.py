@@ -12,8 +12,9 @@ class Board:
     def setup_board(self):
         
         for col in range(8):
-            self.__positions__[1][col] = Pawn("BLACK", f"{col+1}", position=(1, col))
-            self.__positions__[6][col] = Pawn("WHITE", f"{col+1}", position=(6, col))
+            self.__positions__[1][col] = Pawn("BLACK", position=(1, col))
+            self.__positions__[6][col] = Pawn("WHITE", position=(6, col))
+
 
         
         self.__positions__[0][0] = Rook("BLACK")

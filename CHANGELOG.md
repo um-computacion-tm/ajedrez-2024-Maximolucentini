@@ -1,5 +1,15 @@
 ## Changelog
 
+## [0.3] - 19/08/2024
+
+## Agregado
+
+- Iniciando la clase queen
+- Iniciando la clase kink
+- Iniciando la clase bishop
+- Iniciando la clase knight
+- Subiendo primer test de la clase board
+
 ## [0.2] - 18/08/2024
 
 ## Agregado
