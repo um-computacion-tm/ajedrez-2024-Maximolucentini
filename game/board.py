@@ -1,9 +1,9 @@
-from rook import Rook
-from knight import Knight
-from bishop import Bishop
-from queen import Queen
-from king import King
-from pawn import Pawn
+from game.rook import *
+from game.knight import *
+from game.bishop import *
+from game.queen import *
+from game.king import *
+from game.pawn import *
 class Board:
     def __init__(self):
         self.__positions__ = [[None for _ in range(8)] for _ in range(8)]

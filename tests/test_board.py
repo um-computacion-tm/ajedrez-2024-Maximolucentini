@@ -1,11 +1,17 @@
+import sys
+import os
+
+# Agregar la ruta al sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import unittest
-from board import Board
-from rook import Rook
-from knight import Knight
-from bishop import Bishop
-from queen import Queen
-from king import King
-from pawn import Pawn
+from game.board import *
+from game.rook import *
+from game.knight import *
+from game.bishop import *
+from game.queen import *
+from game.king import *
+from game.pawn import *
 
 class TestBoardSetup(unittest.TestCase):
     

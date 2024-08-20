@@ -1,5 +1,5 @@
-from piece import Piece
+from game.piece import *
 
-class Rook(Piece):
+class Queen(Piece):
     def __init__(self, color, position=None):
         super().__init__(color, position)
