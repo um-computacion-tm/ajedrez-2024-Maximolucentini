@@ -1,4 +1,10 @@
 ## Changelog
+## [0.4] - 22/08/2024
+
+## Actualizado
+-Finalizada la clase pawn y board con sus respectivos test
+-Mejorado el codigo de la clase piece
+
 ## [0.4] - 21/08/2024
 
 ## Agregado
