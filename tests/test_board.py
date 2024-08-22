@@ -12,6 +12,7 @@ from game.bishop import *
 from game.queen import *
 from game.king import *
 from game.pawn import *
+from game.piece import *
 
 class TestBoardSetup(unittest.TestCase):
     
@@ -42,6 +43,10 @@ class TestBoardSetup(unittest.TestCase):
         for col in range(8):
             self.assertIsInstance(self.__board__.get_piece(1, col), Pawn)
             self.assertIsInstance(self.__board__.get_piece(6, col), Pawn)
+            
+
+            
+
 
 if __name__ == '__main__':
     unittest.main()

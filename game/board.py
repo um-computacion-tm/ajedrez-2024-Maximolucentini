@@ -4,6 +4,7 @@ from game.bishop import *
 from game.queen import *
 from game.king import *
 from game.pawn import *
+from game.piece import *
 class Board:
     def __init__(self):
         self.__positions__ = [[None for _ in range(8)] for _ in range(8)]

@@ -1,4 +1,10 @@
 ## Changelog
+## [0.4] - 21/08/2024
+
+## Agregado
+
+-Iniciando la clase chess
+-Agregando movimiento al peon
 
 ## [0.3] - 19/08/2024
 
