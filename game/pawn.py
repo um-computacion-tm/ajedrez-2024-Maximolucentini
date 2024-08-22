@@ -21,3 +21,15 @@ class Pawn(Piece):
         if to_row == from_row + direction and from_col == to_col:
             if board.get_piece(to_row, to_col) is None:
                 return True
+            
+        # Captura: un paso en diagonal hacia adelante
+        if (to_row == from_row + direction and 
+            abs(to_col - from_col) == 1 and 
+            board.get_piece(to_row, to_col) is not None):
+            return True
+
+        return False
+    
+    def move(self, to_row, to_col):
+        #Actualiza la posición del peón.
+        self.__position__ = (to_row, to_col)
