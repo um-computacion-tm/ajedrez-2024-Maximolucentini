@@ -15,5 +15,14 @@ class Rook(Piece):
                     return False
             return True
         
-
+        # Movimiento vertical
+        elif from_col == to_col:
+            step = 1 if to_row > from_row else -1
+            for row in range(from_row + step, to_row, step):
+                if board.get_piece(row, from_col) is not None:
+                    return False
+            return True
+        
+        # Si no se mueve en línea recta, el movimiento no es válido.
+        return False
     

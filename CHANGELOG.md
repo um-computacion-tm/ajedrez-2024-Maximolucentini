@@ -1,5 +1,9 @@
 ## Changelog
-## [0.4] - 22/08/2024
+## [0.4] - 23/08/2024
+
+## Actualizado
+
+-Finalizando la clase Rook
 
 ## Actualizado
 -Finalizada la clase pawn y board con sus respectivos test
