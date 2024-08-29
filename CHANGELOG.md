@@ -1,4 +1,10 @@
 ## Changelog
+## [0.5] - 29/08/2024
+
+## Agregado
+
+-Agregando movimiento a la clase bishop
+
 ## [0.5] - 28/08/2024
 
 ## Actualizado
@@ -14,6 +20,7 @@
 -Finalizando la clase Rook
 
 ## Actualizado
+
 -Finalizada la clase pawn y board con sus respectivos test
 -Mejorado el codigo de la clase piece
 

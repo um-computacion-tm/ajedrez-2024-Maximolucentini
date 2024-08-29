@@ -27,8 +27,8 @@ class Pawn(Piece):
      if (to_row == from_row + direction and 
         abs(to_col - from_col) == 1 and 
         board.get_piece(to_row, to_col) is not None and 
-        board.get_piece(from_row, from_col) == self):   
-        return True
+        board.get_piece(to_row, to_col).get_color() != self.__color__):
+        return True   
 
      return False
  
