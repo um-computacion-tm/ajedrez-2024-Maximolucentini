@@ -1,10 +1,10 @@
-from game.rook import *
-from game.knight import *
-from game.bishop import *
-from game.queen import *
-from game.king import *
-from game.pawn import *
-from game.piece import *
+from game.rook import Rook
+from game.knight import Knight
+from game.bishop import Bishop
+from game.queen import Queen
+from game.king import King
+from game.pawn import Pawn
+
 class Board:
     def __init__(self):
         self.__positions__ = [[None for _ in range(8)] for _ in range(8)]
@@ -48,15 +48,19 @@ class Board:
         return self.__positions__[row][col]
     
     def move_piece(self, from_row, from_col, to_row, to_col):
-        piece = self.get_piece(from_row, from_col)
-        if piece and piece.is_valid_move(self, from_row, from_col, to_row, to_col):
-            self.__positions__[to_row][to_col] = piece
-            self.__positions__[from_row][from_col] = None 
-            
-        else: raise ValueError("Movimiento inválido")
-
+     piece = self.get_piece(from_row, from_col)
+     if piece is None:
+        raise ValueError("No hay pieza en la posición de origen")
+     dest_piece = self.get_piece(to_row, to_col)
+     if dest_piece is not None and dest_piece.__class__ == piece.__class__:
+        raise ValueError("La posición de destino ya está ocupada por una pieza del mismo tipo")
+     if piece.is_valid_move(self, from_row, from_col, to_row, to_col):
+        self.__positions__[to_row][to_col] = piece
+        self.__positions__[from_row][from_col] = None
+     else:
+        raise ValueError("Movimiento inválido")
     def show_board(self):
-        # Devuelve una representación textual del tablero
+        """Devuelve una representación textual del tablero"""
         board_str = ""
         for row in self.__positions__:
             for piece in row:

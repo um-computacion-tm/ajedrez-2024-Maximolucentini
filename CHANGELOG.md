@@ -1,4 +1,12 @@
 ## Changelog
+## [0.5] - 28/08/2024
+
+## Actualizado
+
+-Iniciando la clase Cli
+-Mejorando los tests de la clase board y pawn
+-implementando la funcion is_valid_move
+
 ## [0.4] - 23/08/2024
 
 ## Actualizado
