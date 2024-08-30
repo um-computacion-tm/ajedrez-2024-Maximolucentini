@@ -1,4 +1,10 @@
 ## Changelog
+## [0.5] - 30/08/2024
+
+## Agregado
+
+-Agregando movimiento a la clase knight
+
 ## [0.5] - 29/08/2024
 
 ## Agregado

@@ -28,13 +28,8 @@ class Pawn(Piece):
         abs(to_col - from_col) == 1 and 
         board.get_piece(to_row, to_col) is not None and 
         board.get_piece(to_row, to_col).get_color() != self.__color__):
-        return True   
+        return True    
 
      return False
  
-    def move(self, board, to_row, to_col):
-     if self.is_valid_move(board, self.__position__[0], self.__position__[1], to_row, to_col):
-        """Actualiza la posición del peón."""
-        self.__position__ = (to_row, to_col)
-     else:
-        raise ValueError("Movimiento inválido")
+    
