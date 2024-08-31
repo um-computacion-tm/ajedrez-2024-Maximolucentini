@@ -1,4 +1,10 @@
 ## Changelog
+## [0.5] - 31/08/2024
+
+## Agregado
+
+-Agregando movimiento a la clase Queen
+
 ## [0.5] - 30/08/2024
 
 ## Agregado

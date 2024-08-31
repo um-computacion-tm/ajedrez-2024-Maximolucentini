@@ -47,6 +47,9 @@ class Board:
         
         return self.__positions__[row][col]
     
+    def set_piece(self, row, col, piece):
+        self.__positions__[row][col] = piece
+    
     def move_piece(self, from_row, from_col, to_row, to_col):
      piece = self.get_piece(from_row, from_col)
      if piece is None:
