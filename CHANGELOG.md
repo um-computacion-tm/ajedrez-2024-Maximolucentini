@@ -1,4 +1,10 @@
 ## Changelog
+## [0.5] - 01/09/2024
+
+## Agregado
+
+-Agregando movimiento a la clase King
+
 ## [0.5] - 31/08/2024
 
 ## Agregado
