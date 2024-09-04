@@ -1,7 +1,9 @@
+from game.movement import Movement
 class Piece:
     def __init__(self, color, position=None):
         self.__color__ = color  # Color de la pieza, "WHITE" o "BLACK"
         self.__position__ = position  # Posición inicial de la pieza, como una tupla (fila, columna)
+        self.movement_validator = Movement()  # Agrega un atributo movement_validator
     
     def get_color(self):
         """Devuelve el color de la pieza."""
@@ -16,16 +18,16 @@ class Piece:
         self.__position__ = position
 
     def is_valid_move(self, board, from_row, from_col, to_row, to_col):
-        """Verificar si la posición de destino está dentro del tablero"""
+        # Verifica si la posición de destino está dentro del tablero
         if to_row < 0 or to_row >= 8 or to_col < 0 or to_col >= 8:
             return False
 
-        """Verificar si la posición de destino está ocupada por una pieza del mismo tipo"""
+        # Verifica si la posición de destino está ocupada por una pieza del mismo tipo
         if board[to_row][to_col] and board[to_row][to_col].get_color() == self.__color__:
             return False
 
-        
-        raise NotImplementedError
+        # Utiliza la lógica de los movimientos para verificar si el movimiento es válido
+        return self.movement_validator.is_valid_move(board, from_row, from_col, to_row, to_col)
 
     def move(self, to_row, to_col):
         """Actualiza la posición de la pieza."""

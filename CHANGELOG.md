@@ -1,4 +1,11 @@
 ## Changelog
+## [0.5] - 03/09/2024
+
+## Agregado
+
+-Agregando una nueva clase movement
+-Adaptando la clase Pawn y la clase Piece
+
 ## [0.5] - 01/09/2024
 
 ## Agregado
