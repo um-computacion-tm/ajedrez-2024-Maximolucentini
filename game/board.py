@@ -57,17 +57,18 @@ class Board:
         return piece.is_valid_move(self, from_row, from_col, to_row, to_col)
     
     def move_piece(self, from_row, from_col, to_row, to_col):
-     piece = self.get_piece(from_row, from_col)
-     if piece is None:
+       piece = self.get_piece(from_row, from_col)
+       if piece is None:
         raise ValueError("No hay pieza en la posición de origen")
-     dest_piece = self.get_piece(to_row, to_col)
-     if dest_piece is not None and dest_piece.__class__ == piece.__class__:
-        raise ValueError("La posición de destino ya está ocupada por una pieza del mismo tipo")
-     if piece.is_valid_move(self, from_row, from_col, to_row, to_col):
+       dest_piece = self.get_piece(to_row, to_col)
+       if dest_piece is not None and dest_piece.color == piece.color:
+        raise ValueError("La posición de destino ya está ocupada por una pieza del mismo color")
+       if piece.is_valid_move(self, from_row, from_col, to_row, to_col):
         self.__positions__[to_row][to_col] = piece
         self.__positions__[from_row][from_col] = None
-     else:
+       else:
         raise ValueError("Movimiento inválido")
+    
     def show_board(self):
         """Devuelve una representación textual del tablero"""
         board_str = ""

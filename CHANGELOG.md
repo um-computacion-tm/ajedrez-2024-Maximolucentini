@@ -1,4 +1,11 @@
 ## Changelog
+## [0.5] - 05/09/2024
+
+## Actualizado
+
+-Volviendo al esquema anterior sin la clase movement
+-Agregando test para la clase Board
+
 ## [0.5] - 03/09/2024
 
 ## Agregado
