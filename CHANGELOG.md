@@ -1,4 +1,10 @@
 ## Changelog
+## [0.6] - 06/09/2024
+
+## Agregado
+
+-Agregando la funcion Symbol
+
 ## [0.5] - 05/09/2024
 
 ## Actualizado

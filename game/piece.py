@@ -1,8 +1,14 @@
 
 class Piece:
     def __init__(self, color, position=None):
-        self.__color__ = color  # Color de la pieza, "WHITE" o "BLACK"
-        self.__position__ = position  # Posición inicial de la pieza, como una tupla (fila, columna)
+        self.__color__ = color  
+        """Color de la pieza, "WHITE" o "BLACK". """
+        self.__position__ = position  
+        """Posición inicial de la pieza, como una tupla (fila, columna)"""
+        
+    def symbol(self):
+        """Devuelve un símbolo que representa la pieza. Este método se sobrescribirá en las subclases."""
+        raise NotImplementedError    
         
     def get_color(self):
         """Devuelve el color de la pieza."""
@@ -17,16 +23,16 @@ class Piece:
         self.__position__ = position
 
     def is_valid_move(self, board, from_row, from_col, to_row, to_col):
-     # Verificar si la posición de destino está dentro del tablero
+     """Verificar si la posición de destino está dentro del tablero"""
      if to_row < 0 or to_row >= 8 or to_col < 0 or to_col >= 8:
         return False
 
-     # Verificar si la posición de destino está ocupada por una pieza del mismo color
+     """Verificar si la posición de destino está ocupada por una pieza del mismo color"""
      piece = board.get_piece(to_row, to_col)
      if piece and piece.get_color() == self.get_color():
         return False
 
-     # Si las condiciones generales se cumplen, devolvemos True
+     """Si las condiciones generales se cumplen, devolvemos True"""
      return True
 
 

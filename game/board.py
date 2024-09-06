@@ -70,16 +70,16 @@ class Board:
         raise ValueError("Movimiento inválido")
     
     def show_board(self):
-        """Devuelve una representación textual del tablero"""
-        board_str = ""
-        for row in self.__positions__:
-            for piece in row:
-                if piece is None:
-                    board_str += ". "
-                else:
-                    board_str += piece.symbol + " "
-            board_str += "\n"
-        return board_str       
+     """Devuelve una representación textual del tablero"""
+     board_str = ""
+     for row in self.__positions__:
+        for piece in row:
+            if piece is None:
+                board_str += ". "
+            else:
+                board_str += piece.symbol() + " "  
+        board_str += "\n"
+     return board_str     
    
 
  

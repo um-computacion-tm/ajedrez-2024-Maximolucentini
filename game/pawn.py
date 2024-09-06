@@ -6,6 +6,9 @@ class Pawn(Piece):
         super().__init__(color, position)
         self.__initial_position__ = position
         
+    def symbol(self):
+        return 'P' if self.get_color() == "WHITE" else 'p'    
+        
     def is_valid_move(self, board, from_row, from_col, to_row, to_col):
      """Verificar condiciones generales"""
      if not super().is_valid_move(board, from_row, from_col, to_row, to_col):
@@ -32,6 +35,8 @@ class Pawn(Piece):
             return True
 
      return False
+ 
+    
 
  
     

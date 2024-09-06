@@ -4,6 +4,9 @@ class Bishop(Piece):
     def __init__(self, color, position=None):
         super().__init__(color, position)
         
+    def symbol(self):
+        return 'B' if self.get_color() == "WHITE" else 'b'    
+        
         
     def is_valid_move(self, board, from_row, from_col, to_row, to_col):
         """
@@ -29,3 +32,5 @@ class Bishop(Piece):
             return False
 
         return True    
+    
+    

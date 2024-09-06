@@ -11,3 +11,6 @@ class King(Piece):
 
         "Si no es un movimiento válido, devuelve False"
         return False
+    
+    def symbol(self):
+        return 'K' if self.get_color() == "WHITE" else 'k'

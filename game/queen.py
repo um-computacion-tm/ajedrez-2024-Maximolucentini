@@ -4,6 +4,9 @@ class Queen(Piece):
     def __init__(self, color, position=None):
         super().__init__(color, position)
         
+    def symbol(self):
+        return 'Q' if self.get_color() == "WHITE" else 'q'    
+        
     def is_valid_move(self, board, from_row, from_col, to_row, to_col):
      """La Reina se mueve en cualquier dirección (horizontal, vertical o diagonal) cualquier número de casillas."""
     
@@ -38,3 +41,5 @@ class Queen(Piece):
     
      """Si no se mueve en línea recta o diagonal, el movimiento no es válido."""
      return False
+ 
+    
