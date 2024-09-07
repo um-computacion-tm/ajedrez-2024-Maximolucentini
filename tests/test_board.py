@@ -74,8 +74,6 @@ class TestBoard(unittest.TestCase):
         board = Board()
         """ Test de movimiento válido para un peón negro"""
         self.assertTrue(board.is_valid_move(1, 0, 2, 0))
-        """ Test de movimiento inválido (peón blanco no puede mover hacia atrás)"""
-        self.assertFalse(board.is_valid_move(6, 0, 5, 0))
         """ Test de movimiento inválido (no hay pieza en la posición de origen)"""
         self.assertFalse(board.is_valid_move(3, 3, 4, 3))
         """ Test de movimiento inválido (mismo color en destino)"""

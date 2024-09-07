@@ -8,6 +8,9 @@ class Knight(Piece):
         return 'N' if self.get_color() == "WHITE" else 'n'    
         
     def is_valid_move(self, board, from_row, from_col, to_row, to_col):
+        """Verificar condiciones generales"""
+        if not super().is_valid_move(board, from_row, from_col, to_row, to_col):
+         return False
         """
         Los caballos se mueven en L (dos casillas en una dirección y una casilla en otra dirección perpendicular).
         """

@@ -9,6 +9,9 @@ class Bishop(Piece):
         
         
     def is_valid_move(self, board, from_row, from_col, to_row, to_col):
+        """Verificar condiciones generales"""
+        if not super().is_valid_move(board, from_row, from_col, to_row, to_col):
+         return False
         """
         Los alfiles se mueven en diagonal.
         """

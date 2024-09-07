@@ -1,13 +1,16 @@
 from game.piece import Piece
 
 class Rook(Piece):
-    def __init__(self, color, position=None):
-        super().__init__(color, position)
+  def __init__(self, color, position=None):
+    super().__init__(color, position)
         
-    def symbol(self):
+  def symbol(self):
         return 'R' if self.get_color() == "WHITE" else 'r'    
 
-    def is_valid_move(self, board, from_row, from_col, to_row, to_col):
+  def is_valid_move(self, board, from_row, from_col, to_row, to_col):
+      """Verificar condiciones generales"""
+      if not super().is_valid_move(board, from_row, from_col, to_row, to_col):
+        return False
       """Las torres se mueven en línea recta, ya sea horizontal o verticalmente."""
     
       """Movimiento horizontal"""

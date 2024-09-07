@@ -8,6 +8,9 @@ class Queen(Piece):
         return 'Q' if self.get_color() == "WHITE" else 'q'    
         
     def is_valid_move(self, board, from_row, from_col, to_row, to_col):
+     """Verificar condiciones generales"""
+     if not super().is_valid_move(board, from_row, from_col, to_row, to_col):
+        return False
      """La Reina se mueve en cualquier dirección (horizontal, vertical o diagonal) cualquier número de casillas."""
     
      """Movimiento horizontal y vertical"""

@@ -1,4 +1,10 @@
 ## Changelog
+## [0.7] - 07/09/2024
+
+## Actualizado
+
+Arreglando todos los test de la clase Pawn y Board
+
 ## [0.6] - 06/09/2024
 
 ## Agregado
