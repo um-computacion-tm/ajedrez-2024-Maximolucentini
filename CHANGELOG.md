@@ -1,4 +1,10 @@
 ## Changelog
+## [0.7] - 10/09/2024
+
+## Actualizado
+
+-Terminando de testear la clase rook
+
 ## [0.7] - 07/09/2024
 
 ## Actualizado

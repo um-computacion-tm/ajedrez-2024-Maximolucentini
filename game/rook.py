@@ -32,8 +32,3 @@ class Rook(Piece):
     
       """Si no se mueve en línea recta, el movimiento no es válido."""
       return False
-
-
-
-        
-    
