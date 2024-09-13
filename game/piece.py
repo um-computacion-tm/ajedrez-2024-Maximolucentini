@@ -1,7 +1,7 @@
 
 class Piece:
     def __init__(self, color, position=None):
-        self.__color__ = color  
+        self.color= color  
         """Color de la pieza, "WHITE" o "BLACK". """
         self.__position__ = position  
         """Posición inicial de la pieza, como una tupla (fila, columna)"""
@@ -12,7 +12,7 @@ class Piece:
         
     def get_color(self):
         """Devuelve el color de la pieza."""
-        return self.__color__
+        return self.color
     
     def get_position(self):
         """Devuelve la posición actual de la pieza."""
@@ -22,18 +22,20 @@ class Piece:
         """Establece la nueva posición de la pieza."""
         self.__position__ = position
 
-    def is_valid_move(self, board, from_row, from_col, to_row, to_col):
-     """Verificar si la posición de destino está dentro del tablero"""
-     if to_row < 0 or to_row >= 8 or to_col < 0 or to_col >= 8:
-        return False
+    def is_valid_destination(self, board, to_row, to_col):
+        """Verificar si la posición de destino está dentro del tablero y no está ocupada por una pieza del mismo color"""
+        if to_row < 0 or to_row >= 8 or to_col < 0 or to_col >= 8:
+            return False
+        piece = board.get_piece(to_row, to_col)
+        if piece and piece.get_color() == self.get_color():
+            return False
+        return True
 
-     """Verificar si la posición de destino está ocupada por una pieza del mismo color"""
-     piece = board.get_piece(to_row, to_col)
-     if piece and piece.get_color() == self.get_color():
-        return False
-
-     """Si las condiciones generales se cumplen, devolvemos True"""
-     return True
+   
+ 
+    def is_valid_piece_move(self, board, from_row, from_col, to_row, to_col):
+        """Verificar si el movimiento es válido para la pieza."""
+        raise NotImplementedError("Esta función debe ser implementada por las subclases.")
 
 
 
@@ -42,4 +44,4 @@ class Piece:
         self.set_position((to_row, to_col))
 
     def __str__(self):
-        return f"{self.__color__} Piece at {self.__position__}"
+        return f"{self.color} Piece at {self.__position__}"

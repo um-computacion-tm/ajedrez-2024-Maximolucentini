@@ -1,4 +1,12 @@
 ## Changelog
+## [0.8] - 12/09/2024
+
+## Actualizado
+
+-Creando la clase Diagonalmovingpiece y straightmovingpiece para no tener duplicacion de codigo
+-Converti el is_valid_move en funciones mas chicas
+-Adapte todas las clases a las nuevas clases Diagonalmovingpiece y straightmovingpiece
+
 ## [0.7] - 10/09/2024
 
 ## Actualizado
