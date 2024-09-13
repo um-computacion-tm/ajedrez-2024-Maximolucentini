@@ -14,3 +14,56 @@ class TestBoard(unittest.TestCase):
         """Configura un tablero antes de cada prueba."""
         self.board = Board()
 
+    def test_initial_setup(self):
+        """Verifica que el tablero esté correctamente configurado al iniciar."""
+        """Verificar peones en sus posiciones iniciales"""
+        for col in range(8):
+            self.assertIsInstance(self.board.get_piece(1, col), Pawn)
+            self.assertEqual(self.board.get_piece(1, col).get_color(), "BLACK")
+            self.assertIsInstance(self.board.get_piece(6, col), Pawn)
+            self.assertEqual(self.board.get_piece(6, col).get_color(), "WHITE")
+
+        """Verificar torres en sus posiciones iniciales"""
+        self.assertIsInstance(self.board.get_piece(0, 0), Rook)
+        self.assertEqual(self.board.get_piece(0, 0).get_color(), "BLACK")
+        self.assertIsInstance(self.board.get_piece(7, 0), Rook)
+        self.assertEqual(self.board.get_piece(7, 0).get_color(), "WHITE")
+
+    def test_get_piece(self):
+        """Prueba el método get_piece en diferentes posiciones."""
+        self.assertIsInstance(self.board.get_piece(0, 0), Rook)
+        """Una celda vacía debería devolver None"""
+        self.assertIsNone(self.board.get_piece(3, 3))
+
+    def test_set_piece(self):
+        """Prueba el método set_piece para colocar una pieza en una posición específica."""
+        rook = Rook("WHITE")
+        self.board.set_piece(3, 3, rook)
+        self.assertIs(self.board.get_piece(3, 3), rook)
+
+    def test_is_valid_move(self):
+        """Prueba algunos movimientos válidos e inválidos."""
+        """Antes de mover el peón, su estado inicial debería ser True"""
+        pawn = self.board.get_piece(6, 0)
+
+        """Mover una casilla debe ser válido"""
+        self.assertTrue(self.board.is_valid_move(6, 0, 5, 0))  # peón blanco en 6,0 a 5,0
+
+        """Después de mover, su estado inicial debería ser False"""
+        self.board.move_piece(6, 0, 5, 0)
+
+        """Ahora mover dos casillas debe ser inválido"""
+        self.assertFalse(self.board.is_valid_move(5, 0, 3, 0))  # peón blanco no puede moverse dos posiciones en este caso
+
+    def test_move_piece(self):
+        """Prueba que una pieza se mueva correctamente en el tablero."""
+        """Mover un peón blanco hacia adelante"""
+        self.board.move_piece(6, 0, 5, 0)  # peón de 6,0 a 5,0
+        self.assertIsInstance(self.board.get_piece(5, 0), Pawn)
+        """La posición original debe quedar vacía"""
+        self.assertIsNone(self.board.get_piece(6, 0))
+
+
+
+if __name__ == '__main__':
+    unittest.main()
