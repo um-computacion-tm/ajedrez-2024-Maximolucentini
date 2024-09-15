@@ -1,4 +1,10 @@
 ## Changelog
+## [0.8] - 14/09/2024
+
+## Actualizado
+
+-Terminando la actualizacion de los tests de la clase board
+
 ## [0.8] - 12/09/2024
 
 ## Actualizado

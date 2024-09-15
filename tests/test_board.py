@@ -62,8 +62,38 @@ class TestBoard(unittest.TestCase):
         self.assertIsInstance(self.board.get_piece(5, 0), Pawn)
         """La posición original debe quedar vacía"""
         self.assertIsNone(self.board.get_piece(6, 0))
+        
+    def test_invalid_move(self):
+        """Prueba que un movimiento inválido genere un ValueError."""
+        """Intentar mover desde una posición vacía"""
+        with self.assertRaises(ValueError):
+            self.board.move_piece(3, 3, 4, 3)
+
+        """Intentar mover a una casilla ocupada por una pieza del mismo color"""
+        with self.assertRaises(ValueError):
+            self.board.move_piece(0, 0, 0, 1)  # torre negra no puede moverse a donde está el caballo negro
+
+    def test_show_board(self):
+        """Verifica que el método show_board devuelva una representación del tablero."""
+        board_str = self.board.show_board()
+        self.assertIsInstance(board_str, str)
+        """Verificar que la representación contenga 8 filas"""
+        self.assertEqual(len(board_str.strip().split("\n")), 8)
+
+    def test_pawn_initial_position(self):
+        """Prueba que el peón actualice correctamente su estado initial_position después del primer movimiento."""
+        """Mover el peón por primera vez"""
+        self.board.move_piece(6, 0, 4, 0)
+
+        """Verificar que el peón ya no esté en su posición inicial"""
+        pawn = self.board.get_piece(4, 0)
+        self.assertIsInstance(pawn, Pawn)
+        self.assertFalse(pawn.initial_position)  # Debe ser False después del movimiento
+
+        """Intentar moverlo dos casillas nuevamente debe ser inválido"""
+        self.assertFalse(self.board.is_valid_move(4, 0, 2, 0))  # No debería poder moverse dos casillas    
 
 
-
+     
 if __name__ == '__main__':
     unittest.main()
