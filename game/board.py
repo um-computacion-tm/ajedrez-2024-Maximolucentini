@@ -62,32 +62,26 @@ class Board:
         raise ValueError("No hay pieza en la posición de origen")
 
      dest_piece = self.get_piece(to_row, to_col)
-     if dest_piece is not None and dest_piece.get_color() == piece.get_color():
+     if dest_piece and dest_piece.get_color() == piece.get_color():
         raise ValueError("La posición de destino ya está ocupada por una pieza del mismo color")
 
-     if piece.is_valid_piece_move(self, from_row, from_col, to_row, to_col):
-        self.__positions__[to_row][to_col] = piece
-        self.__positions__[from_row][from_col] = None
-        
-        """Si es un peón, actualiza su estado inicial"""
-        if isinstance(piece, Pawn):
-            piece.initial_position = False
-     else:
+     if not piece.is_valid_piece_move(self, from_row, from_col, to_row, to_col):
         raise ValueError("Movimiento inválido")
+
+     # Movimiento válido, actualiza las posiciones
+     self.__positions__[to_row][to_col] = piece
+     self.__positions__[from_row][from_col] = None
+
+     # Si es un peón, actualiza su estado inicial
+     if isinstance(piece, Pawn):
+        piece.initial_position = False
 
 
     
     def show_board(self):
      """Devuelve una representación textual del tablero"""
-     board_str = ""
-     for row in self.__positions__:
-        for piece in row:
-            if piece is None:
-                board_str += ". "
-            else:
-                board_str += piece.symbol() + " "  
-        board_str += "\n"
-     return board_str     
+     return "\n".join(" ".join(piece.symbol() if piece else "." for piece in row) for row in self.__positions__)
+  
    
 
  
