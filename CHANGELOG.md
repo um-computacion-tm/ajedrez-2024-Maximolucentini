@@ -1,4 +1,11 @@
 ## Changelog
+## [0.8] - 16/09/2024
+
+## Actualizado
+
+-Simplificando la fun show_board y move_piece
+-Agregando al code climate que ignore el archivo _init__.py
+
 ## [0.8] - 14/09/2024
 
 ## Actualizado
