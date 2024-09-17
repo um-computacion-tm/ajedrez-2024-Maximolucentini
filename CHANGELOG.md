@@ -1,4 +1,10 @@
 ## Changelog
+## [0.8] - 17/09/2024
+
+## Actualizado
+
+-Mejorando el code climate en la clase king
+
 ## [0.8] - 16/09/2024
 
 ## Actualizado

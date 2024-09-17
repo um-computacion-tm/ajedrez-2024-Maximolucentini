@@ -9,7 +9,10 @@ class King(Piece):
     
     def is_valid_piece_move(self, board, from_row, from_col, to_row, to_col):
         """Verificar si el movimiento es válido para el rey."""
-        """El rey puede moverse una casilla en cualquier dirección."""
+        return self._is_single_square_move(from_row, from_col, to_row, to_col)
+
+    def _is_single_square_move(self, from_row, from_col, to_row, to_col):
+        """Verificar si el rey se mueve solo una casilla en cualquier dirección."""
         return max(abs(from_row - to_row), abs(from_col - to_col)) == 1
-    
+
    
