@@ -1,13 +1,18 @@
 from game.piece import Piece
 
 class DiagonalMovingPiece(Piece):
-    def is_valid_diagonal_move(self, from_row, from_col, to_row, to_col):
+    def is_valid_diagonal_move(self, from_pos, to_pos):
         """Verificar si el movimiento es diagonal."""
+        from_row, from_col = from_pos
+        to_row, to_col = to_pos
         return abs(from_row - to_row) == abs(from_col - to_col)
 
-    def is_path_clear(self, board, from_row, from_col, to_row, to_col):
+    def is_path_clear(self, board, from_pos, to_pos):
         """Verificar si el camino está despejado para el movimiento de la pieza en diagonal."""
-        if not self.is_valid_diagonal_move(from_row, from_col, to_row, to_col):
+        from_row, from_col = from_pos
+        to_row, to_col = to_pos
+        
+        if not self.is_valid_diagonal_move(from_pos, to_pos):
             return False
         
         row_step = 1 if to_row > from_row else -1
@@ -22,8 +27,8 @@ class DiagonalMovingPiece(Piece):
         
         return True
 
-    def is_valid_piece_move(self, board, from_row, from_col, to_row, to_col):
+    def is_valid_piece_move(self, board, from_pos, to_pos):
         """Verificar si el movimiento es válido para las piezas que se mueven en diagonal."""
-        return self.is_valid_diagonal_move(from_row, from_col, to_row, to_col) and \
-               self.is_path_clear(board, from_row, from_col, to_row, to_col) and \
-               super().is_valid_piece_move(board, from_row, from_col, to_row, to_col)
+        return self.is_valid_diagonal_move(from_pos, to_pos) and \
+               self.is_path_clear(board, from_pos, to_pos) and \
+               super().is_valid_piece_move(board, from_pos, to_pos)

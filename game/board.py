@@ -50,31 +50,34 @@ class Board:
     def set_piece(self, row, col, piece):
         self.__positions__[row][col] = piece
         
+   
     def is_valid_move(self, from_row, from_col, to_row, to_col):
         piece = self.__positions__[from_row][from_col]
         if piece is None:
             return False
-        return piece.is_valid_piece_move(self, from_row, from_col, to_row, to_col) and piece.is_valid_destination(self, to_row, to_col)
+        return piece.is_valid_piece_move(self, (from_row, from_col), (to_row, to_col)) and \
+               piece.is_valid_destination(self, to_row, to_col)
 
     def move_piece(self, from_row, from_col, to_row, to_col):
-     piece = self.get_piece(from_row, from_col)
-     if piece is None:
-        raise ValueError("No hay pieza en la posición de origen")
+        piece = self.get_piece(from_row, from_col)
+        if piece is None:
+            raise ValueError("No hay pieza en la posición de origen")
 
-     dest_piece = self.get_piece(to_row, to_col)
-     if dest_piece and dest_piece.get_color() == piece.get_color():
-        raise ValueError("La posición de destino ya está ocupada por una pieza del mismo color")
+        dest_piece = self.get_piece(to_row, to_col)
+        if dest_piece and dest_piece.get_color() == piece.get_color():
+            raise ValueError("La posición de destino ya está ocupada por una pieza del mismo color")
 
-     if not piece.is_valid_piece_move(self, from_row, from_col, to_row, to_col):
-        raise ValueError("Movimiento inválido")
+        if not piece.is_valid_piece_move(self, (from_row, from_col), (to_row, to_col)):
+            raise ValueError("Movimiento inválido")
 
-     # Movimiento válido, actualiza las posiciones
-     self.__positions__[to_row][to_col] = piece
-     self.__positions__[from_row][from_col] = None
+        # Movimiento válido, actualiza las posiciones
+        self.__positions__[to_row][to_col] = piece
+        self.__positions__[from_row][from_col] = None
 
-     # Si es un peón, actualiza su estado inicial
-     if isinstance(piece, Pawn):
-        piece.initial_position = False
+        # Si es un peón, actualiza su estado inicial
+        if isinstance(piece, Pawn):
+            piece.initial_position = False
+
 
 
     

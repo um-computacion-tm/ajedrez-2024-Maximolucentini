@@ -10,8 +10,10 @@ class Pawn(Piece):
     def symbol(self):
         return 'P' if self.get_color() == "WHITE" else 'p'
 
-    def is_valid_piece_move(self, board, from_row, from_col, to_row, to_col):
+    def is_valid_piece_move(self, board, from_pos, to_pos):
         """Verifica si el movimiento es válido para el peón."""
+        from_row, from_col = from_pos
+        to_row, to_col = to_pos
         direction = -1 if self.color == 'WHITE' else 1
 
         """Movimiento hacia adelante sin capturar"""

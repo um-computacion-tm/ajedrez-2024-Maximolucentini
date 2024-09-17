@@ -1,9 +1,9 @@
 ## Changelog
 ## [0.8] - 17/09/2024
 
-## Actualizado
+## Agregado
 
--Mejorando el code climate en la clase king
+-Implementacion de tuplas para reducir argumentos en las funciones
 
 ## [0.8] - 16/09/2024
 

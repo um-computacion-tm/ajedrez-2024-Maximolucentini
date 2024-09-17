@@ -33,7 +33,7 @@ class Piece:
 
    
  
-    def is_valid_piece_move(self, board, from_row, from_col, to_row, to_col):
+    def is_valid_piece_move(self, board, from_pos, to_pos):
         """Verificar si el movimiento es válido para la pieza."""
         raise NotImplementedError("Esta función debe ser implementada por las subclases.")
 
