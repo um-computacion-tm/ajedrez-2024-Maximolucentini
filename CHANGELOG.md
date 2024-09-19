@@ -1,4 +1,10 @@
 ## Changelog
+## [0.9] - 19/09/2024
+
+## Actualizado
+
+-Refactorización de la clases straightmovingpiece y diagonalmovingpiece para reducir complejidad cognitiva y duplicación de código.
+
 ## [0.8] - 17/09/2024
 
 ## Agregado
