@@ -21,12 +21,22 @@ class StraightMovingPiece(Piece):
 
     def _verify_path_clear(self, board, from_pos, to_pos, is_horizontal):
         """Verificar si el rango (horizontal o vertical) está despejado."""
-        start_pos, end_pos = (from_pos[1], to_pos[1]) if is_horizontal else (from_pos[0], to_pos[0])
-        fixed_pos = from_pos[0] if is_horizontal else from_pos[1]
+        
+        """Asignar posiciones según el tipo de movimiento (horizontal o vertical)"""
+        if is_horizontal:
+            start_pos, end_pos = from_pos[1], to_pos[1]
+            fixed_pos = from_pos[0]
+        else:
+            start_pos, end_pos = from_pos[0], to_pos[0]
+            fixed_pos = from_pos[1]
 
+        """Crear función de verificación de posición para evitar lógica condicional dentro del bucle"""
+        check_position = (lambda pos: board.get_piece(fixed_pos, pos)) if is_horizontal else \
+                         (lambda pos: board.get_piece(pos, fixed_pos))
+
+        """Verificar si el rango está despejado"""
         for pos in range(min(start_pos, end_pos) + 1, max(start_pos, end_pos)):
-            
-            if (board.get_piece(fixed_pos, pos) if is_horizontal else board.get_piece(pos, fixed_pos)) is not None:
+            if check_position(pos) is not None:
                 return False
         return True
 
