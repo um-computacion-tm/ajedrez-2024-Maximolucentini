@@ -1,8 +1,7 @@
 from game.piece import Piece
 
-from game.piece import Piece
-
 class StraightMovingPiece(Piece):
+
     def is_valid_straight_move(self, from_pos, to_pos):
         """Verificar si el movimiento es en línea recta (horizontal o vertical)."""
         from_row, from_col = from_pos
@@ -14,29 +13,21 @@ class StraightMovingPiece(Piece):
         if not self.is_valid_straight_move(from_pos, to_pos):
             return False
 
-        return self.check_path_clear(board, from_pos, to_pos)
+        """Identificar si es un movimiento horizontal o vertical"""
+        is_horizontal = from_pos[0] == to_pos[0]
+        
+        """Llamar a la función con las posiciones y tipo de movimiento"""
+        return self._verify_path_clear(board, from_pos, to_pos, is_horizontal)
 
-    def check_path_clear(self, board, from_pos, to_pos):
-        """Verificar si el camino en línea recta (horizontal o vertical) está despejado."""
-        from_row, from_col = from_pos
-        to_row, to_col = to_pos
+    def _verify_path_clear(self, board, from_pos, to_pos, is_horizontal):
+        """Verificar si el rango (horizontal o vertical) está despejado."""
+        start_pos, end_pos = (from_pos[1], to_pos[1]) if is_horizontal else (from_pos[0], to_pos[0])
+        fixed_pos = from_pos[0] if is_horizontal else from_pos[1]
 
-        """Movimiento horizontal"""
-        if from_row == to_row:
-            return self.check_clear_range(board, from_row, from_col, to_col, horizontal=True)
-
-        """Movimiento vertical"""
-        return self.check_clear_range(board, from_col, from_row, to_row, horizontal=False)
-
-    def check_clear_range(self, board, fixed_pos, start_pos, end_pos, horizontal):
-        """Verificar si el rango de movimiento está despejado (horizontal o vertical)."""
         for pos in range(min(start_pos, end_pos) + 1, max(start_pos, end_pos)):
-            if horizontal:
-                if board.get_piece(fixed_pos, pos) is not None:
-                    return False
-            else:
-                if board.get_piece(pos, fixed_pos) is not None:
-                    return False
+            
+            if (board.get_piece(fixed_pos, pos) if is_horizontal else board.get_piece(pos, fixed_pos)) is not None:
+                return False
         return True
 
     def is_valid_piece_move(self, board, from_pos, to_pos):
@@ -44,3 +35,4 @@ class StraightMovingPiece(Piece):
         return self.is_valid_straight_move(from_pos, to_pos) and \
                self.is_path_clear(board, from_pos, to_pos) and \
                super().is_valid_piece_move(board, from_pos, to_pos)
+
