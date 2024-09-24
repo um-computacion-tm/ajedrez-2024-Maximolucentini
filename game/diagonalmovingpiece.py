@@ -39,7 +39,11 @@ class DiagonalMovingPiece(Piece):
 
 
     def is_valid_piece_move(self, board, from_pos, to_pos):
-        """Verificar si el movimiento es válido para las piezas que se mueven en diagonal."""
-        return self.is_valid_diagonal_move(from_pos, to_pos) and \
-               self.is_path_clear(board, from_pos, to_pos) and \
-               super().is_valid_piece_move(board, from_pos, to_pos)
+     """Verificar si el movimiento es válido para las piezas que se mueven en diagonal."""
+     if not self.is_valid_diagonal_move(from_pos, to_pos):
+        return False
+
+     if not self.is_path_clear(board, from_pos, to_pos):
+        return False
+
+     return super().is_valid_piece_move(board, from_pos, to_pos)
