@@ -1,4 +1,10 @@
 ## Changelog
+## [0.9] - 25/09/2024
+
+## Actualizado
+
+-Reduccion de argumentos en la clase diagonalmovingpiece
+
 ## [0.9] - 19/09/2024
 
 ## Actualizado

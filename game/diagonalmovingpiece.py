@@ -21,10 +21,11 @@ class DiagonalMovingPiece(Piece):
         to_row, to_col = to_pos
         row_step = 1 if to_row > from_row else -1
         col_step = 1 if to_col > from_col else -1
-        return row_step, col_step
+        return (row_step, col_step)
 
-    def check_clear_path(self, board, from_pos, to_pos, row_step, col_step):
+    def check_clear_path(self, board, from_pos, to_pos, steps):
         """Verificar si el camino diagonal está despejado."""
+        row_step, col_step = steps
         from_row, from_col = from_pos
         to_row, to_col = to_pos
         row, col = from_row + row_step, from_col + col_step
