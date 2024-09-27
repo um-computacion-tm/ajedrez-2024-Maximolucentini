@@ -1,4 +1,11 @@
-## Changelog
+## Changelo## 
+## [0.9] - 27/09/2024
+
+## Actualizado
+
+-Reduccion de la complejidad cognitiva en la clase pawn
+-Agregado de tests en la clase pawn
+
 ## [0.9] - 25/09/2024
 
 ## Actualizado
@@ -150,7 +157,5 @@ Arreglando todos los test de la clase Pawn y Board
 
 - Iniciando la clase Board
 
-## [0.1] - 13 / 08 / 2024
 
-## Agregado
 
