@@ -32,21 +32,25 @@ class Pawn(Piece):
         """Movimiento en la misma columna"""
         if from_col == to_col:
             """Verificar si es un paso adelante"""
-            if self._is_one_step_forward(from_row, to_row, direction, board, to_pos):
+            if self._is_one_step_forward(board, from_pos, to_pos, direction):
                 return True
             """Verificar si es un paso doble desde la posición inicial"""
-            if self._is_two_steps_forward(from_row, to_row, direction, board, from_pos, to_pos):
+            if self._is_two_steps_forward(board, from_pos, to_pos, direction):
                 return True
         return False
 
-    def _is_one_step_forward(self, from_row, to_row, direction, board, to_pos):
+    def _is_one_step_forward(self, board, from_pos, to_pos, direction):
         """Verificar si es un paso adelante y la casilla está libre."""
+        from_row, _ = from_pos
+        to_row, _ = to_pos
         return from_row + direction == to_row and board.get_piece(to_pos[0], to_pos[1]) is None
 
-    def _is_two_steps_forward(self, from_row, to_row, direction, board, from_pos, to_pos):
+    def _is_two_steps_forward(self, board, from_pos, to_pos, direction):
         """Verificar si el peón puede avanzar dos pasos desde la posición inicial."""
+        from_row, from_col = from_pos
+        to_row, _ = to_pos
         return self.initial_position and from_row + 2 * direction == to_row and \
-               board.get_piece(from_row + direction, from_pos[1]) is None and \
+               board.get_piece(from_row + direction, from_col) is None and \
                board.get_piece(to_pos[0], to_pos[1]) is None
 
     def _valid_diagonal_capture(self, board, from_pos, to_pos, direction):
@@ -62,4 +66,3 @@ class Pawn(Piece):
     def _is_enemy_piece(self, target_piece):
         """Verificar si la pieza objetivo es enemiga."""
         return target_piece is not None and target_piece.get_color() != self.color
-
