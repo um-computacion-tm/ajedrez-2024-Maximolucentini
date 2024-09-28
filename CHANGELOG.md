@@ -1,4 +1,11 @@
 ## Changelo## 
+## [1.0] - 28/09/2024
+
+## Agregado
+
+-Testeando la clase Piece
+-Refactorizacion de la clase knight para reducir la duplicacion de codigo
+
 ## [0.9] - 27/09/2024
 
 ## Actualizado
