@@ -1,28 +1,24 @@
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 import unittest
 from game.piece import Piece
-
-
-"""Mock para el tablero"""
-class MockBoard:
-    def __init__(self, pieces=None):
-        self.pieces = pieces if pieces else {}
-
-    def get_piece(self, row, col):
-        return self.pieces.get((row, col), None)
+from game.board import Board  
 
 class TestPiece(unittest.TestCase):
 
     def setUp(self):
-        """Configura una pieza y un mock de tablero antes de cada prueba."""
+        """Configura una pieza y un tablero real antes de cada prueba."""
         self.piece = Piece("WHITE", (0, 0))  
         """Creamos una pieza blanca en la posición (0, 0)"""
-        self.board = MockBoard()  
-        """Creamos un mock del tablero sin piezas"""
+        self.board = Board()  
+        """Usamos el tablero"""
+        self.board.setup_board()  
+        """Inicializa el tablero con las piezas"""
 
     def test_get_color(self):
         """Prueba que get_color devuelva el color correcto."""
@@ -48,14 +44,18 @@ class TestPiece(unittest.TestCase):
 
     def test_is_valid_destination_occupied_by_same_color(self):
         """Prueba que is_valid_destination devuelva False cuando la posición está ocupada por una pieza del mismo color."""
-        """Agregar una pieza blanca en la posición (4, 4)"""
-        self.board.pieces[(4, 4)] = Piece("WHITE", (4, 4))
+        """Simular la colocación de una pieza blanca en la posición (4, 4)"""
+        piece_on_board = Piece("WHITE", (4, 4))
+        self.board.set_piece(4, 4, piece_on_board)  
+        """Colocar pieza en el tablero"""
         self.assertFalse(self.piece.is_valid_destination(self.board, 4, 4))
 
     def test_is_valid_destination_occupied_by_opponent(self):
         """Prueba que is_valid_destination devuelva True cuando la posición está ocupada por una pieza del color contrario."""
-        """Agregar una pieza negra en la posición (4, 4)"""
-        self.board.pieces[(4, 4)] = Piece("BLACK", (4, 4))
+        """Simular la colocación de una pieza negra en la posición (4, 4)"""
+        opponent_piece = Piece("BLACK", (4, 4))
+        self.board.set_piece(4, 4, opponent_piece)  
+        """Colocar pieza en el tablero"""
         self.assertTrue(self.piece.is_valid_destination(self.board, 4, 4))
 
     def test_move(self):
@@ -69,3 +69,4 @@ class TestPiece(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
