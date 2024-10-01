@@ -1,4 +1,10 @@
 ## Changelo## 
+## [1.1] - 29/09/2024
+
+## Agregado
+
+-Testeando y arreglando la clase diagonalmovingpiece
+
 ## [1.0] - 28/09/2024
 
 ## Agregado
