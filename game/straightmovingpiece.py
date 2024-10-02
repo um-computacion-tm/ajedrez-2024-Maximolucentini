@@ -37,32 +37,20 @@ class StraightMovingPiece(Piece):
 
     def is_valid_piece_move(self, board, from_pos, to_pos):
         """Verificar si el movimiento es válido para las piezas que se mueven en línea recta."""
-        
-        valid_move = True  # Asumimos que el movimiento es válido
+        return (self._is_within_board(to_pos) 
+                and not self._is_same_position(from_pos, to_pos)
+                and self.is_valid_straight_move(from_pos, to_pos)
+                and self.is_path_clear(board, from_pos, to_pos)
+                and self.is_valid_destination(board, to_pos))
 
-        # Validar que la pieza no se mueve a la misma casilla
-        if from_pos == to_pos:
-            valid_move = False
+    def _is_within_board(self, pos):
+        """Validar si una posición está dentro de los límites del tablero."""
+        return 0 <= pos[0] < 8 and 0 <= pos[1] < 8
 
-        # Validar que la posición de destino esté dentro de los límites del tablero
-        elif not (0 <= to_pos[0] < 8 and 0 <= to_pos[1] < 8):
-            valid_move = False
+    def _is_same_position(self, from_pos, to_pos):
+        """Validar si el origen y destino son la misma posición."""
+        return from_pos == to_pos
 
-        # Validar que el movimiento sea en línea recta
-        elif not self.is_valid_straight_move(from_pos, to_pos):
-            valid_move = False
-
-        # Validar que el camino esté despejado
-        elif not self.is_path_clear(board, from_pos, to_pos):
-            valid_move = False
-
-        # Verificar si hay una pieza en la casilla destino del mismo color
-        else:
-            final_piece = board.get_piece(to_pos[0], to_pos[1])
-            if final_piece is not None and final_piece.get_color() == self.get_color():
-                valid_move = False  # No puede capturar una pieza propia
-
-        return valid_move
 
 
 
