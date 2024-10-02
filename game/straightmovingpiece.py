@@ -43,10 +43,31 @@ class StraightMovingPiece(Piece):
 
     def is_valid_piece_move(self, board, from_pos, to_pos):
      """Verificar si el movimiento es válido para las piezas que se mueven en línea recta."""
-     valid_move = self.is_valid_straight_move(from_pos, to_pos)
-     clear_path = self.is_path_clear(board, from_pos, to_pos)
-     base_validation = super().is_valid_piece_move(board, from_pos, to_pos)
+    
+     """Validar que la pieza no se mueve a la misma casilla"""
+     if from_pos == to_pos:
+        return False
 
-     return valid_move and clear_path and base_validation
+     """Validar que la posición de destino esté dentro de los límites del tablero"""
+     if not (0 <= to_pos[0] < 8 and 0 <= to_pos[1] < 8):
+        return False
+
+     """Validar que el movimiento sea en línea recta"""
+     if not self.is_valid_straight_move(from_pos, to_pos):
+        return False
+    
+     """Validar que el camino esté despejado"""
+     if not self.is_path_clear(board, from_pos, to_pos):
+        return False
+
+     """Verificar si hay una pieza en la casilla destino del mismo color"""
+     final_piece = board.get_piece(to_pos[0], to_pos[1])
+     if final_piece is not None and final_piece.get_color() == self.get_color():
+        return False  
+     """No puede capturar una pieza propia"""
+
+     return True
+
+
 
 

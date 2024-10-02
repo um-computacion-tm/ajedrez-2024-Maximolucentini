@@ -1,4 +1,10 @@
 ## Changelo## 
+## [1.2] - 02/10/2024
+
+## Agregado
+
+-Testeando la clase Straightmovingpiece
+
 ## [1.1] - 29/09/2024
 
 ## Agregado
