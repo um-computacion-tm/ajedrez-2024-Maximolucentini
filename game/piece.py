@@ -22,14 +22,15 @@ class Piece:
         """Establece la nueva posición de la pieza."""
         self.__position__ = position
 
-    def is_valid_destination(self, board, to_row, to_col):
-        """Verificar si la posición de destino está dentro del tablero y no está ocupada por una pieza del mismo color"""
-        if to_row < 0 or to_row >= 8 or to_col < 0 or to_col >= 8:
-            return False
-        piece = board.get_piece(to_row, to_col)
-        if piece and piece.get_color() == self.get_color():
-            return False
-        return True
+    def is_valid_destination(self, board, to_pos):
+     """Verificar si la posición de destino está dentro del tablero y no está ocupada por una pieza del mismo color."""
+     to_row, to_col = to_pos
+     if to_row < 0 or to_row >= 8 or to_col < 0 or to_col >= 8:
+        return False
+     piece = board.get_piece(to_row, to_col)
+     if piece and piece.get_color() == self.get_color():
+        return False
+     return True
 
    
  

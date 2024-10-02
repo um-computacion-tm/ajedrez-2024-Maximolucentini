@@ -34,29 +34,24 @@ class TestPiece(unittest.TestCase):
         self.assertEqual(self.piece.get_position(), (1, 1))
 
     def test_is_valid_destination_within_bounds(self):
-        """Prueba que is_valid_destination devuelva True cuando la posición está dentro del tablero y no ocupada."""
-        self.assertTrue(self.piece.is_valid_destination(self.board, 4, 4))
+     """Prueba que is_valid_destination devuelva True cuando la posición está dentro del tablero y no ocupada."""
+     self.assertTrue(self.piece.is_valid_destination(self.board, (4, 4)))  # Pasar una tupla
 
     def test_is_valid_destination_out_of_bounds(self):
-        """Prueba que is_valid_destination devuelva False cuando la posición está fuera del tablero."""
-        self.assertFalse(self.piece.is_valid_destination(self.board, 8, 8))  
-        """Fuera del tablero"""
+     """Prueba que is_valid_destination devuelva False cuando la posición está fuera del tablero."""
+     self.assertFalse(self.piece.is_valid_destination(self.board, (8, 8)))  # Pasar una tupla
 
     def test_is_valid_destination_occupied_by_same_color(self):
-        """Prueba que is_valid_destination devuelva False cuando la posición está ocupada por una pieza del mismo color."""
-        """Simular la colocación de una pieza blanca en la posición (4, 4)"""
-        piece_on_board = Piece("WHITE", (4, 4))
-        self.board.set_piece(4, 4, piece_on_board)  
-        """Colocar pieza en el tablero"""
-        self.assertFalse(self.piece.is_valid_destination(self.board, 4, 4))
+     """Prueba que is_valid_destination devuelva False cuando la posición está ocupada por una pieza del mismo color."""
+     piece_on_board = Piece("WHITE", (4, 4))
+     self.board.set_piece(4, 4, piece_on_board)
+     self.assertFalse(self.piece.is_valid_destination(self.board, (4, 4)))  # Pasar una tupla
 
     def test_is_valid_destination_occupied_by_opponent(self):
-        """Prueba que is_valid_destination devuelva True cuando la posición está ocupada por una pieza del color contrario."""
-        """Simular la colocación de una pieza negra en la posición (4, 4)"""
-        opponent_piece = Piece("BLACK", (4, 4))
-        self.board.set_piece(4, 4, opponent_piece)  
-        """Colocar pieza en el tablero"""
-        self.assertTrue(self.piece.is_valid_destination(self.board, 4, 4))
+     """Prueba que is_valid_destination devuelva True cuando la posición está ocupada por una pieza del color contrario."""
+     opponent_piece = Piece("BLACK", (4, 4))
+     self.board.set_piece(4, 4, opponent_piece)
+     self.assertTrue(self.piece.is_valid_destination(self.board, (4, 4)))  # Pasar una tupla
 
     def test_move(self):
         """Prueba que move actualice correctamente la posición de la pieza."""
