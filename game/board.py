@@ -56,7 +56,7 @@ class Board:
         if piece is None:
             return False
         return piece.is_valid_piece_move(self, (from_row, from_col), (to_row, to_col)) and \
-               piece.is_valid_destination(self, to_row, to_col)
+               piece.is_valid_destination(self, (to_row, to_col))  
 
     def move_piece(self, from_row, from_col, to_row, to_col):
         piece = self.get_piece(from_row, from_col)
@@ -70,11 +70,11 @@ class Board:
         if not piece.is_valid_piece_move(self, (from_row, from_col), (to_row, to_col)):
             raise ValueError("Movimiento inválido")
 
-        # Movimiento válido, actualiza las posiciones
+        """Movimiento válido, actualiza las posiciones"""
         self.__positions__[to_row][to_col] = piece
         self.__positions__[from_row][from_col] = None
 
-        # Si es un peón, actualiza su estado inicial
+        """Si es un peón, actualiza su estado inicial"""
         if isinstance(piece, Pawn):
             piece.initial_position = False
 

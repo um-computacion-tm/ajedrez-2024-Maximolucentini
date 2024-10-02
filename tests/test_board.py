@@ -47,18 +47,21 @@ class TestBoard(unittest.TestCase):
         pawn = self.board.get_piece(6, 0)
 
         """Mover una casilla debe ser válido"""
-        self.assertTrue(self.board.is_valid_move(6, 0, 5, 0))  # peón blanco en 6,0 a 5,0
+        self.assertTrue(self.board.is_valid_move(6, 0, 5, 0))  
+        """peón blanco en 6,0 a 5,0"""
 
         """Después de mover, su estado inicial debería ser False"""
         self.board.move_piece(6, 0, 5, 0)
 
         """Ahora mover dos casillas debe ser inválido"""
-        self.assertFalse(self.board.is_valid_move(5, 0, 3, 0))  # peón blanco no puede moverse dos posiciones en este caso
+        self.assertFalse(self.board.is_valid_move(5, 0, 3, 0))  
+        """peón blanco no puede moverse dos posiciones en este caso"""
 
     def test_move_piece(self):
         """Prueba que una pieza se mueva correctamente en el tablero."""
         """Mover un peón blanco hacia adelante"""
-        self.board.move_piece(6, 0, 5, 0)  # peón de 6,0 a 5,0
+        self.board.move_piece(6, 0, 5, 0)  
+        """peón de 6,0 a 5,0"""
         self.assertIsInstance(self.board.get_piece(5, 0), Pawn)
         """La posición original debe quedar vacía"""
         self.assertIsNone(self.board.get_piece(6, 0))
@@ -71,7 +74,8 @@ class TestBoard(unittest.TestCase):
 
         """Intentar mover a una casilla ocupada por una pieza del mismo color"""
         with self.assertRaises(ValueError):
-            self.board.move_piece(0, 0, 0, 1)  # torre negra no puede moverse a donde está el caballo negro
+            self.board.move_piece(0, 0, 0, 1)  
+            """torre negra no puede moverse a donde está el caballo negro"""
 
     def test_show_board(self):
         """Verifica que el método show_board devuelva una representación del tablero."""
@@ -88,10 +92,12 @@ class TestBoard(unittest.TestCase):
         """Verificar que el peón ya no esté en su posición inicial"""
         pawn = self.board.get_piece(4, 0)
         self.assertIsInstance(pawn, Pawn)
-        self.assertFalse(pawn.initial_position)  # Debe ser False después del movimiento
+        self.assertFalse(pawn.initial_position)  
+        """Debe ser False después del movimiento"""
 
         """Intentar moverlo dos casillas nuevamente debe ser inválido"""
-        self.assertFalse(self.board.is_valid_move(4, 0, 2, 0))  # No debería poder moverse dos casillas    
+        self.assertFalse(self.board.is_valid_move(4, 0, 2, 0))  
+        """No debería poder moverse dos casillas"""    
 
 
      
