@@ -23,22 +23,17 @@ class DiagonalMovingPiece(Piece):
 
         current_row, current_col = from_row + row_step, from_col + col_step
 
-        """Recorre el camino intermedio hasta la posición final"""
+        """Recorrer el camino intermedio hasta la posición final"""
         while (current_row, current_col) != (to_row, to_col):
             if board.get_piece(current_row, current_col) is not None:
                 return False  
-            """Camino bloqueado por una pieza"""
+            """Camino bloqueado"""
+
             current_row += row_step
             current_col += col_step
 
-        """Verifica si puede capturar una pieza enemiga en la posición final"""
-        final_piece = board.get_piece(to_row, to_col)
-        if final_piece is not None and final_piece.get_color() == self.get_color():
-            return False  
-        """No puede capturar una pieza del mismo color"""
-
-        """El camino está despejado y puede capturar si es necesario"""
-        return True
+        """Usar is_valid_destination de la clase base para validar el destino"""
+        return self.is_valid_destination(board, to_pos)
 
     def is_path_clear(self, board, from_pos, to_pos):
         """Verificar si el camino está despejado para el movimiento de la pieza en diagonal."""
