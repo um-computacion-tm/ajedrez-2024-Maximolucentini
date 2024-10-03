@@ -12,36 +12,65 @@ from game.piece import Piece
 class TestBishop(unittest.TestCase):
 
     def setUp(self):
-        """Configura un tablero real y un alfil antes de cada prueba."""
-        self.board = Board()  
-        """Usamos el tablero real"""
-        self.bishop = Bishop("WHITE", (0, 2))  
-        """Creamos un alfil blanco en la posición (0, 2)"""
+        """Creamos un tablero vacío para las pruebas"""
+        self.board = Board()
+        self.board.__positions__ = [[None for _ in range(8)] for _ in range(8)]  
+        """Tablero vacío"""
+
+    def test_valid_diagonal_move(self):
+        """Verifica que el alfil pueda moverse en diagonal"""
+        bishop = Bishop("WHITE", (4, 4))
+        self.board.set_piece(4, 4, bishop)
+        self.assertTrue(bishop.is_valid_piece_move(self.board, (4, 4), (7, 7)))  
+        """Movimiento diagonal"""
+
+    def test_blocked_move(self):
+        """Verifica que el alfil no pueda atravesar otras piezas"""
+        bishop = Bishop("WHITE", (4, 4))
+        self.board.set_piece(4, 4, bishop)
+        blocking_piece = Bishop("WHITE", (6, 6))
+        self.board.set_piece(6, 6, blocking_piece)
+        self.assertFalse(bishop.is_valid_piece_move(self.board, (4, 4), (7, 7)))  
+        """Camino bloqueado"""
+
+    def test_capture_enemy_piece(self):
+        """Verifica que el alfil pueda capturar una pieza enemiga"""
+        bishop = Bishop("WHITE", (4, 4))
+        self.board.set_piece(4, 4, bishop)
+        enemy_piece = Bishop("BLACK", (6, 6))
+        self.board.set_piece(6, 6, enemy_piece)
+        self.assertTrue(bishop.is_valid_piece_move(self.board, (4, 4), (6, 6)))  
+        """Captura de pieza enemiga"""
+
+    def test_capture_own_piece(self):
+        """Verifica que el alfil no pueda capturar una pieza propia"""
+        bishop = Bishop("WHITE", (4, 4))
+        self.board.set_piece(4, 4, bishop)
+        own_piece = Bishop("WHITE", (6, 6))
+        self.board.set_piece(6, 6, own_piece)
+        self.assertFalse(bishop.is_valid_piece_move(self.board, (4, 4), (6, 6)))  
+        """No puede capturar pieza propia"""
+
+    def test_invalid_move(self):
+        """Verifica que el alfil no pueda moverse de manera no diagonal"""
+        bishop = Bishop("WHITE", (4, 4))
+        self.board.set_piece(4, 4, bishop)
+        self.assertFalse(bishop.is_valid_piece_move(self.board, (4, 4), (4, 7)))  
+        """Movimiento no diagonal"""
 
     def test_symbol(self):
-        """Prueba que el símbolo del alfil sea correcto."""
-        self.assertEqual(self.bishop.symbol(), 'B')
-
+        """Verifica que el símbolo del alfil sea correcto para ambos colores"""
+        white_bishop = Bishop("WHITE", (0, 2))
         black_bishop = Bishop("BLACK", (7, 2))
-        self.assertEqual(black_bishop.symbol(), 'b')
+        self.assertEqual(white_bishop.symbol(), 'B')  
+        """Alfil blanco"""
+        self.assertEqual(black_bishop.symbol(), 'b')  
+        """Alfil negro"""
 
+if __name__ == '__main__':
+    unittest.main()
 
-    def test_is_valid_piece_move_invalid(self):
-        """Prueba que el alfil no pueda hacer movimientos no diagonales."""
-        """Movimiento horizontal (no válido para el alfil)"""
-        self.assertFalse(self.bishop.is_valid_piece_move(self.board, (0, 2), (0, 5)))
-
-        """Movimiento vertical (no válido para el alfil)"""
-        self.assertFalse(self.bishop.is_valid_piece_move(self.board, (0, 2), (3, 2)))
-
-    def test_is_valid_piece_move_with_blocked_path(self):
-        """Prueba que el alfil no pueda moverse si hay una pieza en el camino."""
-        """Colocar una pieza en el camino"""
-        blocking_piece = Piece("WHITE", (1, 3))
-        self.board.set_piece(1, 3, blocking_piece)
-
-        """El camino está bloqueado, el movimiento no debería ser válido"""
-        self.assertFalse(self.bishop.is_valid_piece_move(self.board, (0, 2), (2, 4)))
+    
 
 
 
