@@ -1,5 +1,11 @@
 ## Changelo## 
-## [1.2] - 02/10/2024
+## [1.3] - 02/10/2024
+
+## Agregado
+
+-Testeando la clase Rook y la clase Knight
+
+## [1.2] - 01/10/2024
 
 ## Agregado
 

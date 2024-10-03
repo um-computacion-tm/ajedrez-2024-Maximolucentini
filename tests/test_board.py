@@ -99,7 +99,5 @@ class TestBoard(unittest.TestCase):
         self.assertFalse(self.board.is_valid_move(4, 0, 2, 0))  
         """No debería poder moverse dos casillas"""    
 
-
-     
 if __name__ == '__main__':
-    unittest.main()
+ unittest.main()    

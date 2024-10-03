@@ -13,8 +13,10 @@ class TestBishop(unittest.TestCase):
 
     def setUp(self):
         """Configura un tablero real y un alfil antes de cada prueba."""
-        self.board = Board()  # Usamos el tablero real
-        self.bishop = Bishop("WHITE", (0, 2))  # Creamos un alfil blanco en la posición (0, 2)
+        self.board = Board()  
+        """Usamos el tablero real"""
+        self.bishop = Bishop("WHITE", (0, 2))  
+        """Creamos un alfil blanco en la posición (0, 2)"""
 
     def test_symbol(self):
         """Prueba que el símbolo del alfil sea correcto."""
@@ -26,19 +28,19 @@ class TestBishop(unittest.TestCase):
 
     def test_is_valid_piece_move_invalid(self):
         """Prueba que el alfil no pueda hacer movimientos no diagonales."""
-        # Movimiento horizontal (no válido para el alfil)
+        """Movimiento horizontal (no válido para el alfil)"""
         self.assertFalse(self.bishop.is_valid_piece_move(self.board, (0, 2), (0, 5)))
 
-        # Movimiento vertical (no válido para el alfil)
+        """Movimiento vertical (no válido para el alfil)"""
         self.assertFalse(self.bishop.is_valid_piece_move(self.board, (0, 2), (3, 2)))
 
     def test_is_valid_piece_move_with_blocked_path(self):
         """Prueba que el alfil no pueda moverse si hay una pieza en el camino."""
-        # Colocar una pieza en el camino
+        """Colocar una pieza en el camino"""
         blocking_piece = Piece("WHITE", (1, 3))
         self.board.set_piece(1, 3, blocking_piece)
 
-        # El camino está bloqueado, el movimiento no debería ser válido
+        """El camino está bloqueado, el movimiento no debería ser válido"""
         self.assertFalse(self.bishop.is_valid_piece_move(self.board, (0, 2), (2, 4)))
 
 

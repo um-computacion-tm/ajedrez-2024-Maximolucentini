@@ -11,6 +11,4 @@ class Rook(StraightMovingPiece):
         """Verificar si el movimiento es válido para la torre."""
         """La torre puede moverse vertical o horizontalmente."""
         """Llama a la validación de la clase base"""
-        from_row, from_col = from_pos
-        to_row, to_col = to_pos
-        return super().is_valid_piece_move(board, from_row, from_col, to_row, to_col)
+        return super().is_valid_piece_move(board, from_pos, to_pos)
