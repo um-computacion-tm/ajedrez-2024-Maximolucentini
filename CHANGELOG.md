@@ -1,4 +1,16 @@
 ## Changelo## 
+## [1.5] - 04/10/2024
+
+## Agregado
+
+-Testeando la clase King
+
+## [1.4] - 03/10/2024
+
+## Agregado
+
+-Testeando la clase Queen
+
 ## [1.3] - 02/10/2024
 
 ## Agregado
