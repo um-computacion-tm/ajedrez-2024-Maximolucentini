@@ -9,7 +9,7 @@ class Queen(Piece):
         self.diagonal_moving_piece = DiagonalMovingPiece(color)
 
     def symbol(self):
-        return 'Q' if self.get_color() == "WHITE" else 'q'
+        return '♕' if self.get_color() == "WHITE" else '♛'
 
     def is_valid_piece_move(self, board, from_pos, to_pos):
         """Verificar si el movimiento es válido para la reina."""

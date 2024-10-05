@@ -5,7 +5,7 @@ class Bishop(DiagonalMovingPiece):
         super().__init__(color, position)
         
     def symbol(self):
-        return 'B' if self.get_color() == "WHITE" else 'b'
+        return '♗' if self.get_color() == "WHITE" else '♝'
 
     def is_valid_piece_move(self, board, from_pos, to_pos):
         """Verificar si el movimiento es válido para el alfil."""

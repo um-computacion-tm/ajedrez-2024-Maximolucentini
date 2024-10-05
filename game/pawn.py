@@ -2,13 +2,13 @@ from game.piece import Piece
 from game.board import *
 
 class Pawn(Piece):
-    def __init__(self, color):
-        super().__init__(color)
+    def __init__(self, color, position=None):
+        super().__init__(color, position)
         self.initial_position = True  
         """El peón empieza en su posición inicial"""
 
     def symbol(self):
-        return 'P' if self.get_color() == "WHITE" else 'p'
+        return '♙' if self.get_color() == "WHITE" else '♟'
 
     def is_valid_piece_move(self, board, from_pos, to_pos):
         """Verifica si el movimiento es válido para el peón."""

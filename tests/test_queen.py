@@ -71,9 +71,9 @@ class TestQueen(unittest.TestCase):
         """Verifica que el símbolo de la reina sea correcto para ambos colores"""
         white_queen = Queen("WHITE", (0, 3))
         black_queen = Queen("BLACK", (7, 3))
-        self.assertEqual(white_queen.symbol(), 'Q')  
+        self.assertEqual(white_queen.symbol(), '♕')  
         """Reina blanca"""
-        self.assertEqual(black_queen.symbol(), 'q')  
+        self.assertEqual(black_queen.symbol(), '♛')  
         """Reina negra"""
     
 

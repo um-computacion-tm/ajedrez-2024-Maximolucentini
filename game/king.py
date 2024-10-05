@@ -5,7 +5,7 @@ class King(Piece):
         super().__init__(color, position)
         
     def symbol(self):
-        return 'K' if self.get_color() == "WHITE" else 'k'
+        return '♔' if self.get_color() == "WHITE" else '♚'
     
     def is_valid_piece_move(self, board, from_pos, to_pos):
         """Verificar si el movimiento es válido para el rey."""

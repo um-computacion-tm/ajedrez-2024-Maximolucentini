@@ -47,6 +47,16 @@ class Board:
         
         return self.__positions__[row][col]
     
+    def get_pieces(self, color):
+        """Devuelve todas las piezas del color especificado en el tablero"""
+        pieces = []
+        for row in range(8):
+            for col in range(8):
+                piece = self.get_piece(row, col)
+                if piece is not None and piece.get_color() == color:
+                    pieces.append(piece)
+        return pieces
+    
     def set_piece(self, row, col, piece):
         self.__positions__[row][col] = piece
         

@@ -1,4 +1,11 @@
 ## Changelo## 
+## [1.6] - 05/10/2024
+
+## Agregado
+
+-Agregado de simbolos en todas las clases
+-Avanzando con la clase Chess
+
 ## [1.5] - 04/10/2024
 
 ## Agregado

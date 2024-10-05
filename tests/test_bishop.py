@@ -62,9 +62,9 @@ class TestBishop(unittest.TestCase):
         """Verifica que el símbolo del alfil sea correcto para ambos colores"""
         white_bishop = Bishop("WHITE", (0, 2))
         black_bishop = Bishop("BLACK", (7, 2))
-        self.assertEqual(white_bishop.symbol(), 'B')  
+        self.assertEqual(white_bishop.symbol(), '♗')  
         """Alfil blanco"""
-        self.assertEqual(black_bishop.symbol(), 'b')  
+        self.assertEqual(black_bishop.symbol(), '♝')  
         """Alfil negro"""
 
 if __name__ == '__main__':

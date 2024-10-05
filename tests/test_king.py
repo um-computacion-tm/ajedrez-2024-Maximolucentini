@@ -61,9 +61,9 @@ class TestKing(unittest.TestCase):
         """Verifica que el símbolo del rey sea correcto para ambos colores"""
         white_king = King("WHITE", (0, 4))
         black_king = King("BLACK", (7, 4))
-        self.assertEqual(white_king.symbol(), 'K')  
+        self.assertEqual(white_king.symbol(), '♔')  
         """Rey blanco"""
-        self.assertEqual(black_king.symbol(), 'k')  
+        self.assertEqual(black_king.symbol(), '♚')  
         """Rey negro"""
 
 if __name__ == '__main__':
