@@ -98,6 +98,30 @@ class TestBoard(unittest.TestCase):
         """Intentar moverlo dos casillas nuevamente debe ser inválido"""
         self.assertFalse(self.board.is_valid_move(4, 0, 2, 0))  
         """No debería poder moverse dos casillas"""    
+        
+    def test_get_pieces_in_row(self):
+        """Verifica que se devuelvan las piezas de un color en una fila"""
+        white_pieces_row_6 = self.board.get_pieces_in_row(6, "WHITE")
+        self.assertEqual(len(white_pieces_row_6), 8)  
+        """Hay 8 peones blancos en la fila 6"""
+        self.assertTrue(all(piece.get_color() == "WHITE" for piece in white_pieces_row_6))
+
+        black_pieces_row_1 = self.board.get_pieces_in_row(1, "BLACK")
+        self.assertEqual(len(black_pieces_row_1), 8)  
+        """Hay 8 peones negros en la fila 1"""
+        self.assertTrue(all(piece.get_color() == "BLACK" for piece in black_pieces_row_1))
+
+    def test_get_pieces(self):
+        """Verifica que se devuelvan todas las piezas de un color en el tablero"""
+        white_pieces = self.board.get_pieces("WHITE")
+        self.assertEqual(len(white_pieces), 16)  
+        """Hay 16 piezas blancas en el tablero"""
+        self.assertTrue(all(piece.get_color() == "WHITE" for piece in white_pieces))
+
+        black_pieces = self.board.get_pieces("BLACK")
+        self.assertEqual(len(black_pieces), 16)  
+        """Hay 16 piezas negras en el tablero"""
+        self.assertTrue(all(piece.get_color() == "BLACK" for piece in black_pieces))    
 
 if __name__ == '__main__':
  unittest.main()    
