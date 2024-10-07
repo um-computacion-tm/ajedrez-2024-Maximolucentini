@@ -14,17 +14,30 @@ class ChessCLI:
 
     def display_board(self):
         """Imprime el tablero en la consola"""
-        print("  a b c d e f g h")  # Encabezado de columnas
+        self.print_column_headers()
         for row in range(8):
-            print(8 - row, end=" ")  # Encabezado de filas
-            for col in range(8):
-                piece = self.chess_game.board.get_piece(row, col)
-                if piece:
-                    print(piece.symbol(), end=" ")
-                else:
-                    print(".", end=" ")  # Un punto representa una casilla vacía
-            print(8 - row)  # Encabezado de fila al final
-        print("  a b c d e f g h")  # Encabezado de columnas al final
+            self.print_row(row)
+        self.print_column_headers()
+
+    def print_column_headers(self):
+        """Imprime los encabezados de las columnas (a-h)"""
+        print("  a b c d e f g h")  # Encabezado de columnas
+
+    def print_row(self, row):
+        """Imprime una fila del tablero, con sus piezas"""
+        print(8 - row, end=" ")  # Encabezado de fila
+        for col in range(8):
+            piece = self.chess_game.board.get_piece(row, col)
+            self.print_piece(piece)
+        print(8 - row)  # Encabezado de fila al final
+
+    def print_piece(self, piece):
+        """Imprime una pieza o un punto para una casilla vacía"""
+        if piece:
+            print(piece.symbol(), end=" ")
+        else:
+            print(".", end=" ")  # Un punto representa una casilla vacía
+
 
     def get_move_input(self):
         """Obtiene la entrada del movimiento del usuario"""
@@ -45,3 +58,4 @@ class ChessCLI:
         col = columns.index(square[0])
         row = rows.index(square[1])
         return (row, col)
+   
