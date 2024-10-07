@@ -1,4 +1,10 @@
 ## Changelo## 
+## [1.6] - 06/10/2024
+
+## Agregado
+
+-Terminando la clase chess
+
 ## [1.6] - 05/10/2024
 
 ## Agregado
