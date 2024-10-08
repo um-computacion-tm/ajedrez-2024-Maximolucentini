@@ -3,6 +3,12 @@
 
 ## Agregado
 
+-Terminando la clase ChessCLI
+
+## [1.7] - 07/10/2024
+
+## Agregado
+
 -Avanzando con la clase ChessCLI
 
 ## [1.6] - 06/10/2024
