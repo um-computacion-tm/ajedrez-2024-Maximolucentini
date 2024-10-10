@@ -1,4 +1,10 @@
 ## Changelo## 
+## [1.8] - 09/10/2024
+
+## Agregado
+
+-Testeando las clases Chess y ChessCLI
+
 ## [1.7] - 07/10/2024
 
 ## Agregado

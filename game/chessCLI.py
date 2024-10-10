@@ -60,31 +60,33 @@ class ChessCLI:
         return (row, col)
     
     def play_game(self):
-        """Inicia el bucle principal del juego de ajedrez"""
-        print("Bienvenido al juego de ajedrez.")
-        while not self.chess_game.is_game_over:
-            self.display_board()
-            print(f"Turno de {self.chess_game.current_turn}")
-            
-            # Solicitar movimiento del jugador
-            from_pos, to_pos = self.get_move_input()
-            
-            # Realizar movimiento
-            valid_move, message = self.chess_game.make_move(from_pos, to_pos)
-            print(message)
+     """Inicia el bucle principal del juego de ajedrez"""
+     print("Bienvenido al juego de ajedrez.")
+     while not self.chess_game.is_game_over:
+        self.display_board()
+        print(f"Turno de {self.chess_game.current_turn}")
 
-            # Verificar condiciones del juego
-            game_over, end_message = self.chess_game.check_end_conditions()
-            if game_over:
-                print(end_message)
-                break
+        # Verificar si los jugadores quieren terminar el juego antes de realizar un movimiento
+        if input("¿Desean terminar el juego? (s/n): ").strip().lower() == 's':
+            self.chess_game.end_game_by_agreement()
+            print("El juego ha terminado por mutuo acuerdo.")
+            break
 
-            # Verificar si los jugadores quieren terminar el juego
-            if input("¿Desean terminar el juego? (s/n): ").strip().lower() == 's':
-                self.chess_game.end_game_by_agreement()
-                print("El juego ha terminado por mutuo acuerdo.")
+        # Solicitar movimiento del jugador
+        from_pos, to_pos = self.get_move_input()
         
-        print("El juego ha terminado.")
+        # Realizar movimiento
+        valid_move, message = self.chess_game.make_move(from_pos, to_pos)
+        print(message)
+
+        # Verificar condiciones del juego
+        game_over, end_message = self.chess_game.check_end_conditions()
+        if game_over:
+            print(end_message)
+            break
+
+     print("El juego ha terminado.")
+
 
     def start(self):
         """Inicia el juego llamando a play_game"""
