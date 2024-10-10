@@ -66,6 +66,36 @@ class TestChessCLI(unittest.TestCase):
         # Verificar que el método end_game_by_agreement sea llamado
         mock_end_game_by_agreement.assert_called_once()
         mock_print.assert_any_call("El juego ha terminado por mutuo acuerdo.")
+        
+    @patch('builtins.input', side_effect=['s'])  # Simula que los jugadores quieren terminar el juego
+    @patch('builtins.print')
+    @patch('game.chess.Chess.end_game_by_agreement')
+    def test_terminate_game(self, mock_end_game_by_agreement, mock_print, mock_input):
+        """Prueba que el juego se termine cuando los jugadores eligen terminar"""
+        cli = ChessCLI()
+        cli.play_game()
+
+        # Verificar que se llame a end_game_by_agreement
+        mock_end_game_by_agreement.assert_called_once()
+        mock_print.assert_any_call("El juego ha terminado por mutuo acuerdo.")
+        mock_print.assert_any_call("El juego ha terminado.")  
+
+    
+    @patch('builtins.input', side_effect=['n', 'e2', 'e4', 'n', 'e7', 'e5', 's'])  # Flujo de juego y finalización
+    @patch('builtins.print')
+    @patch('game.chess.Chess.make_move', return_value=(True, "Movimiento válido"))
+    @patch('game.chess.Chess.check_end_conditions', return_value=(True, "Fin del juego, un jugador se quedó sin piezas"))
+    def test_game_end_conditions(self, mock_check_end_conditions, mock_make_move, mock_print, mock_input):
+        """Prueba que se manejen correctamente las condiciones de finalización del juego"""
+        cli = ChessCLI()
+        cli.play_game()
+
+        # Verificar que se imprime el mensaje de movimiento
+        mock_print.assert_any_call("Movimiento válido")  
+
+        # Verificar que se detecta el fin del juego y se imprime el mensaje correcto
+        mock_print.assert_any_call("Fin del juego, un jugador se quedó sin piezas")
+        mock_print.assert_any_call("El juego ha terminado.")    
 
 if __name__ == '__main__':
     unittest.main()
