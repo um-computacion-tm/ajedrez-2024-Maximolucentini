@@ -1,4 +1,11 @@
 ## Changelo## 
+## [1.9] - 10/10/2024
+
+## Agregado
+
+-Agregando todas las docstrings (En ingles)
+-Agregando a los atributos como prefijo y postfijo los simbolos "__"
+
 ## [1.8] - 09/10/2024
 
 ## Agregado

@@ -1,7 +1,6 @@
 import sys
 import os
 
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import unittest
@@ -12,59 +11,60 @@ from game.piece import Piece
 class TestKing(unittest.TestCase):
 
     def setUp(self):
-        """Creamos un tablero vacío para las pruebas"""
-        self.board = Board()
-        self.board.__positions__ = [[None for _ in range(8)] for _ in range(8)]  
-        """Tablero vacío"""
+        """
+        Creates an empty board for testing.
+        """
+        self.__board__ = Board()
+        self.__board__.__positions__ = [[None for _ in range(8)] for _ in range(8)]  # Empty board
 
     def test_valid_move(self):
-        """Verifica que el rey pueda moverse una casilla en cualquier dirección"""
+        """
+        Verifies that the king can move one square in any direction.
+        """
         king = King("WHITE", (4, 4))
-        self.board.set_piece(4, 4, king)
-        self.assertTrue(king.is_valid_piece_move(self.board, (4, 4), (5, 5)))  
-        """Movimiento diagonal"""
-        self.assertTrue(king.is_valid_piece_move(self.board, (4, 4), (4, 5)))  
-        """Movimiento horizontal"""
-        self.assertTrue(king.is_valid_piece_move(self.board, (4, 4), (5, 4)))  
-        """Movimiento vertical"""
+        self.__board__.set_piece(4, 4, king)
+        self.assertTrue(king.is_valid_piece_move(self.__board__, (4, 4), (5, 5)))  # Diagonal move
+        self.assertTrue(king.is_valid_piece_move(self.__board__, (4, 4), (4, 5)))  # Horizontal move
+        self.assertTrue(king.is_valid_piece_move(self.__board__, (4, 4), (5, 4)))  # Vertical move
 
     def test_invalid_move(self):
-        """Verifica que el rey no pueda moverse más de una casilla en cualquier dirección"""
+        """
+        Verifies that the king cannot move more than one square in any direction.
+        """
         king = King("WHITE", (4, 4))
-        self.board.set_piece(4, 4, king)
-        self.assertFalse(king.is_valid_piece_move(self.board, (4, 4), (6, 4)))  
-        """Movimiento inválido (2 casillas vertical)"""
-        self.assertFalse(king.is_valid_piece_move(self.board, (4, 4), (4, 6)))  
-        """Movimiento inválido (2 casillas horizontal)"""
-        self.assertFalse(king.is_valid_piece_move(self.board, (4, 4), (6, 6)))  
-        """Movimiento inválido (2 casillas diagonal)"""
+        self.__board__.set_piece(4, 4, king)
+        self.assertFalse(king.is_valid_piece_move(self.__board__, (4, 4), (6, 4)))  # Invalid move (2 squares vertical)
+        self.assertFalse(king.is_valid_piece_move(self.__board__, (4, 4), (4, 6)))  # Invalid move (2 squares horizontal)
+        self.assertFalse(king.is_valid_piece_move(self.__board__, (4, 4), (6, 6)))  # Invalid move (2 squares diagonal)
 
     def test_capture_enemy_piece(self):
-        """Verifica que el rey pueda capturar una pieza enemiga"""
+        """
+        Verifies that the king can capture an enemy piece.
+        """
         king = King("WHITE", (4, 4))
-        self.board.set_piece(4, 4, king)
+        self.__board__.set_piece(4, 4, king)
         enemy_piece = King("BLACK", (5, 5))
-        self.board.set_piece(5, 5, enemy_piece)
-        self.assertTrue(king.is_valid_piece_move(self.board, (4, 4), (5, 5)))  
-        """Captura de pieza enemiga"""
+        self.__board__.set_piece(5, 5, enemy_piece)
+        self.assertTrue(king.is_valid_piece_move(self.__board__, (4, 4), (5, 5)))  # Capture enemy piece
 
     def test_capture_own_piece(self):
-        """Verifica que el rey no pueda capturar una pieza propia"""
+        """
+        Verifies that the king cannot capture its own piece.
+        """
         king = King("WHITE", (4, 4))
-        self.board.set_piece(4, 4, king)
+        self.__board__.set_piece(4, 4, king)
         own_piece = King("WHITE", (5, 5))
-        self.board.set_piece(5, 5, own_piece)
-        self.assertFalse(king.is_valid_piece_move(self.board, (4, 4), (5, 5)))  
-        """No puede capturar pieza propia"""
+        self.__board__.set_piece(5, 5, own_piece)
+        self.assertFalse(king.is_valid_piece_move(self.__board__, (4, 4), (5, 5)))  # Cannot capture own piece
 
     def test_symbol(self):
-        """Verifica que el símbolo del rey sea correcto para ambos colores"""
+        """
+        Verifies that the king's symbol is correct for both colors.
+        """
         white_king = King("WHITE", (0, 4))
         black_king = King("BLACK", (7, 4))
-        self.assertEqual(white_king.symbol(), '♔')  
-        """Rey blanco"""
-        self.assertEqual(black_king.symbol(), '♚')  
-        """Rey negro"""
+        self.assertEqual(white_king.symbol(), '♔')  # White king
+        self.assertEqual(black_king.symbol(), '♚')  # Black king
 
 if __name__ == '__main__':
     unittest.main()

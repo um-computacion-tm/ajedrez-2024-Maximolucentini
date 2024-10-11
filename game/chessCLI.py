@@ -1,97 +1,132 @@
 import sys
 import os
 
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 
 from game.chess import Chess
 
 class ChessCLI:
     def __init__(self):
-        """Inicializa la interfaz de línea de comando del juego de ajedrez"""
-        self.chess_game = Chess()  # Instancia de la clase Chess
+        """
+        Initializes the Chess Command Line Interface (CLI).
+        Attributes:
+        __chess_game__: An instance of the Chess game.
+        """
+        self.__chess_game__ = Chess()  
+        """Instance of the Chess class"""
+            
 
     def display_board(self):
-        """Imprime el tablero en la consola"""
+        """
+        Prints the current state of the chess board to the console.
+        """
         self.print_column_headers()
         for row in range(8):
             self.print_row(row)
         self.print_column_headers()
 
     def print_column_headers(self):
-        """Imprime los encabezados de las columnas (a-h)"""
-        print("  a b c d e f g h")  # Encabezado de columnas
+        """
+        Prints the column headers (a-h) for the chess board.
+        """
+        print("  a b c d e f g h")  
+        """Column headers"""
 
     def print_row(self, row):
-        """Imprime una fila del tablero, con sus piezas"""
-        print(8 - row, end=" ")  # Encabezado de fila
+        """
+        Prints a row of the chess board with its pieces.
+        Parameters:
+        row (int): The row number to be printed (0-7).
+        """
+        print(8 - row, end=" ")  
+        """Row header"""
         for col in range(8):
-            piece = self.chess_game.board.get_piece(row, col)
+            piece = self.__chess_game__.__board__.get_piece(row, col)
             self.print_piece(piece)
-        print(8 - row)  # Encabezado de fila al final
+        print(8 - row)  
+        """Row header at the end"""
 
     def print_piece(self, piece):
-        """Imprime una pieza o un punto para una casilla vacía"""
+        """
+        Prints a chess piece or a dot for an empty square.
+        Parameters:
+        piece (ChessPiece or None): The chess piece to print, or None if the square is empty.
+        """
         if piece:
             print(piece.symbol(), end=" ")
         else:
-            print(".", end=" ")  # Un punto representa una casilla vacía
-
+            print(".", end=" ")  
+            """A dot represents an empty square"""
 
     def get_move_input(self):
-        """Obtiene la entrada del movimiento del usuario"""
+        """
+        Gets the player's move input for the game.
+        Returns:
+        tuple: A tuple containing two positions, (from_pos, to_pos).
+        """
         while True:
             try:
-                from_square = input("Ingrese la posición de origen (ej: e2): ").strip()
-                to_square = input("Ingrese la posición de destino (ej: e4): ").strip()
+                from_square = input("Enter the origin position (e.g., e2): ").strip()
+                to_square = input("Enter the destination position (e.g., e4): ").strip()
                 from_pos = self.convert_input_to_position(from_square)
                 to_pos = self.convert_input_to_position(to_square)
                 return from_pos, to_pos
             except ValueError:
-                print("Entrada no válida. Intente nuevamente.")
+                print("Invalid input. Please try again.")
 
     def convert_input_to_position(self, square):
-        """Convierte una entrada como 'e2' a una posición en el tablero"""
+        """
+        Converts a square like 'e2' into a board position.
+        Parameters:
+        square (str): The square in algebraic notation (e.g., 'e2').
+        Returns:
+        tuple: The (row, col) position on the board.
+        """
         columns = 'abcdefgh'
         rows = '87654321'
         col = columns.index(square[0])
         row = rows.index(square[1])
         return (row, col)
-    
+
     def play_game(self):
-     """Inicia el bucle principal del juego de ajedrez"""
-     print("Bienvenido al juego de ajedrez.")
-     while not self.chess_game.is_game_over:
-        self.display_board()
-        print(f"Turno de {self.chess_game.current_turn}")
+        """
+        Starts the main loop for the chess game.
+        Continuously displays the board, gets input, and processes moves until the game ends.
+        """
+        print("Welcome to the chess game.")
+        while not self.__chess_game__.__is_game_over__:
+            self.display_board()
+            print(f"{self.__chess_game__.__current_turn__}'s turn")
 
-        # Verificar si los jugadores quieren terminar el juego antes de realizar un movimiento
-        if input("¿Desean terminar el juego? (s/n): ").strip().lower() == 's':
-            self.chess_game.end_game_by_agreement()
-            print("El juego ha terminado por mutuo acuerdo.")
-            break
+            """Check if players want to end the game before making a move"""
+            if input("Do you want to end the game? (y/n): ").strip().lower() == 'y':
+                self.__chess_game__.end_game_by_agreement()
+                print("The game has ended by mutual agreement.")
+                break
 
-        # Solicitar movimiento del jugador
-        from_pos, to_pos = self.get_move_input()
-        
-        # Realizar movimiento
-        valid_move, message = self.chess_game.make_move(from_pos, to_pos)
-        print(message)
+            """Get player's move"""
+            from_pos, to_pos = self.get_move_input()
 
-        # Verificar condiciones del juego
-        game_over, end_message = self.chess_game.check_end_conditions()
-        if game_over:
-            print(end_message)
-            break
+            """Make the move"""
+            valid_move, message = self.__chess_game__.make_move(from_pos, to_pos)
+            print(message)
 
-     print("El juego ha terminado.")
+            """Check game conditions"""
+            game_over, end_message = self.__chess_game__.check_end_conditions()
+            if game_over:
+                print(end_message)
+                break
 
+        print("The game has ended.")
 
     def start(self):
-        """Inicia el juego llamando a play_game"""
+        """
+        Starts the game by calling play_game.
+        """
         self.play_game()
 
 if __name__ == "__main__":
-    cli = ChessCLI()  # Crea una instancia de ChessCLI
-    cli.start()  # Inicia el juego
+    cli = ChessCLI()  
+    """Creates an instance of ChessCLI"""
+    cli.start()  
+    """Starts the game"""

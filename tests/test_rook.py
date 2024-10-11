@@ -10,58 +10,65 @@ from game.rook import Rook
 class TestRook(unittest.TestCase):
 
     def setUp(self):
-        """Creamos un tablero vacío para las pruebas"""
-        self.board = Board()
-        self.board.__positions__ = [[None for _ in range(8)] for _ in range(8)]  
-        """Tablero vacío"""
+        """
+        Creates an empty board for testing.
+        """
+        self.__board__ = Board()
+        self.__board__.__positions__ = [[None for _ in range(8)] for _ in range(8)]  # Empty board
 
     def test_valid_vertical_move(self):
-        """Verifica que la torre se pueda mover verticalmente"""
+        """
+        Verifies that the rook can move vertically.
+        """
         rook = Rook("WHITE", (0, 0))
-        self.board.set_piece(0, 0, rook)
-        self.assertTrue(rook.is_valid_piece_move(self.board, (0, 0), (5, 0)))  
-        """Movimiento vertical"""
+        self.__board__.set_piece(0, 0, rook)
+        self.assertTrue(rook.is_valid_piece_move(self.__board__, (0, 0), (5, 0)))  # Vertical move
 
     def test_valid_horizontal_move(self):
-        """Verifica que la torre se pueda mover horizontalmente"""
+        """
+        Verifies that the rook can move horizontally.
+        """
         rook = Rook("WHITE", (0, 0))
-        self.board.set_piece(0, 0, rook)
-        self.assertTrue(rook.is_valid_piece_move(self.board, (0, 0), (0, 7)))  
-        """Movimiento horizontal"""
+        self.__board__.set_piece(0, 0, rook)
+        self.assertTrue(rook.is_valid_piece_move(self.__board__, (0, 0), (0, 7)))  # Horizontal move
 
     def test_invalid_diagonal_move(self):
-        """Verifica que la torre no se pueda mover en diagonal"""
+        """
+        Verifies that the rook cannot move diagonally.
+        """
         rook = Rook("WHITE", (0, 0))
-        self.board.set_piece(0, 0, rook)
-        self.assertFalse(rook.is_valid_piece_move(self.board, (0, 0), (3, 3)))  
-        """Movimiento diagonal"""
+        self.__board__.set_piece(0, 0, rook)
+        self.assertFalse(rook.is_valid_piece_move(self.__board__, (0, 0), (3, 3)))  # Diagonal move
 
     def test_blocked_move(self):
-        """Verifica que la torre no pueda atravesar otras piezas"""
+        """
+        Verifies that the rook cannot move through other pieces.
+        """
         rook = Rook("WHITE", (0, 0))
-        self.board.set_piece(0, 0, rook)
+        self.__board__.set_piece(0, 0, rook)
         blocking_piece = Rook("WHITE", (3, 0))
-        self.board.set_piece(3, 0, blocking_piece)
-        self.assertFalse(rook.is_valid_piece_move(self.board, (0, 0), (5, 0)))  
-        """Camino bloqueado"""
+        self.__board__.set_piece(3, 0, blocking_piece)
+        self.assertFalse(rook.is_valid_piece_move(self.__board__, (0, 0), (5, 0)))  # Blocked path
 
     def test_capture_enemy_piece(self):
-        """Verifica que la torre pueda capturar una pieza enemiga"""
+        """
+        Verifies that the rook can capture an enemy piece.
+        """
         rook = Rook("WHITE", (0, 0))
-        self.board.set_piece(0, 0, rook)
+        self.__board__.set_piece(0, 0, rook)
         enemy_piece = Rook("BLACK", (5, 0))
-        self.board.set_piece(5, 0, enemy_piece)
-        self.assertTrue(rook.is_valid_piece_move(self.board, (0, 0), (5, 0)))  
-        """Captura de pieza enemiga"""
+        self.__board__.set_piece(5, 0, enemy_piece)
+        self.assertTrue(rook.is_valid_piece_move(self.__board__, (0, 0), (5, 0)))  # Capture enemy piece
 
     def test_capture_own_piece(self):
-        """Verifica que la torre no pueda capturar una pieza propia"""
+        """
+        Verifies that the rook cannot capture its own piece.
+        """
         rook = Rook("WHITE", (0, 0))
-        self.board.set_piece(0, 0, rook)
+        self.__board__.set_piece(0, 0, rook)
         own_piece = Rook("WHITE", (5, 0))
-        self.board.set_piece(5, 0, own_piece)
-        self.assertFalse(rook.is_valid_piece_move(self.board, (0, 0), (5, 0)))  
-        """No puede capturar pieza propia"""
+        self.__board__.set_piece(5, 0, own_piece)
+        self.assertFalse(rook.is_valid_piece_move(self.__board__, (0, 0), (5, 0)))  # Cannot capture own piece
 
 if __name__ == '__main__':
     unittest.main()

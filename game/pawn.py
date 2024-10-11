@@ -3,66 +3,126 @@ from game.board import *
 
 class Pawn(Piece):
     def __init__(self, color, position=None):
+        """
+        Initializes a Pawn piece with the specified color and position.
+        Attributes:
+        __initial_position__: Boolean indicating if the pawn is in its initial position.
+        """
         super().__init__(color, position)
-        self.initial_position = True  
-        """El peón empieza en su posición inicial"""
+        self.__initial_position__ = True  
+        """The pawn starts in its initial position"""
 
     def symbol(self):
+        """
+        Returns the symbol representing the pawn.
+        Returns:
+        str: '♙' for white pawns, '♟' for black pawns.
+        """
         return '♙' if self.get_color() == "WHITE" else '♟'
 
     def is_valid_piece_move(self, board, from_pos, to_pos):
-        """Verifica si el movimiento es válido para el peón."""
-        direction = -1 if self.color == 'WHITE' else 1
+        """
+        Checks if the move is valid for the pawn.
+        Parameters:
+        board (Board): The current board.
+        from_pos (tuple): The starting position as (row, col).
+        to_pos (tuple): The destination position as (row, col).
+        Returns:
+        bool: True if the move is valid, False otherwise.
+        """
+        direction = -1 if self.get_color() == 'WHITE' else 1
 
-        """Verificar movimiento hacia adelante sin captura"""
-        if self._valid_move_forward(board, from_pos, to_pos, direction):
+        """Check forward move without capture"""
+        if self.__valid_move_forward__(board, from_pos, to_pos, direction):
             return True
 
-        """Verificar captura en diagonal"""
-        if self._valid_diagonal_capture(board, from_pos, to_pos, direction):
+        """Check diagonal capture"""
+        if self.__valid_diagonal_capture__(board, from_pos, to_pos, direction):
             return True
 
         return False
 
-    def _valid_move_forward(self, board, from_pos, to_pos, direction):
-        """Verificar si el movimiento hacia adelante es válido (sin captura)."""
+    def __valid_move_forward__(self, board, from_pos, to_pos, direction):
+        """
+        Checks if the forward move is valid (without capture).
+        Parameters:
+        board (Board): The current board.
+        from_pos (tuple): The starting position as (row, col).
+        to_pos (tuple): The destination position as (row, col).
+        direction (int): The direction of movement (-1 for white, 1 for black).
+        Returns:
+        bool: True if the forward move is valid, False otherwise.
+        """
         from_row, from_col = from_pos
         to_row, to_col = to_pos
 
-        """Movimiento en la misma columna"""
+        """Move in the same column"""
         if from_col == to_col:
-            """Verificar si es un paso adelante"""
-            if self._is_one_step_forward(board, from_pos, to_pos, direction):
+            """Check single step forward"""
+            if self.__is_one_step_forward__(board, from_pos, to_pos, direction):
                 return True
-            """Verificar si es un paso doble desde la posición inicial"""
-            if self._is_two_steps_forward(board, from_pos, to_pos, direction):
+            """Check double step from initial position"""
+            if self.__is_two_steps_forward__(board, from_pos, to_pos, direction):
                 return True
         return False
 
-    def _is_one_step_forward(self, board, from_pos, to_pos, direction):
-        """Verificar si es un paso adelante y la casilla está libre."""
+    def __is_one_step_forward__(self, board, from_pos, to_pos, direction):
+        """
+        Checks if the move is a single step forward and the square is empty.
+        Parameters:
+        board (Board): The current board.
+        from_pos (tuple): The starting position as (row, col).
+        to_pos (tuple): The destination position as (row, col).
+        direction (int): The direction of movement (-1 for white, 1 for black).
+        Returns:
+        bool: True if the single step forward is valid, False otherwise.
+        """
         from_row, _ = from_pos
         to_row, _ = to_pos
         return from_row + direction == to_row and board.get_piece(to_pos[0], to_pos[1]) is None
 
-    def _is_two_steps_forward(self, board, from_pos, to_pos, direction):
-        """Verificar si el peón puede avanzar dos pasos desde la posición inicial."""
+    def __is_two_steps_forward__(self, board, from_pos, to_pos, direction):
+        """
+        Checks if the pawn can move two steps forward from the initial position.
+        Parameters:
+        board (Board): The current board.
+        from_pos (tuple): The starting position as (row, col).
+        to_pos (tuple): The destination position as (row, col).
+        direction (int): The direction of movement (-1 for white, 1 for black).
+        Returns:
+        bool: True if the two-step forward move is valid, False otherwise.
+        """
         from_row, from_col = from_pos
         to_row, _ = to_pos
-        return self.initial_position and from_row + 2 * direction == to_row and \
+        return self.__initial_position__ and from_row + 2 * direction == to_row and \
                board.get_piece(from_row + direction, from_col) is None and \
                board.get_piece(to_pos[0], to_pos[1]) is None
 
-    def _valid_diagonal_capture(self, board, from_pos, to_pos, direction):
-        """Verificar si la captura en diagonal es válida."""
+    def __valid_diagonal_capture__(self, board, from_pos, to_pos, direction):
+        """
+        Checks if the diagonal capture is valid.
+        Parameters:
+        board (Board): The current board.
+        from_pos (tuple): The starting position as (row, col).
+        to_pos (tuple): The destination position as (row, col).
+        direction (int): The direction of movement (-1 for white, 1 for black).
+        Returns:
+        bool: True if the diagonal capture is valid, False otherwise.
+        """
         from_row, from_col = from_pos
         to_row, to_col = to_pos
 
         if abs(from_col - to_col) == 1 and from_row + direction == to_row:
             target_piece = board.get_piece(to_row, to_col)
-            return self._is_enemy_piece(target_piece)
+            return self.__is_enemy_piece__(target_piece)
         return False
 
-    def _is_enemy_piece(self, target_piece):
-        """Verificar si la pieza objetivo es enemiga."""
-        return target_piece is not None and target_piece.get_color() != self.color
+    def __is_enemy_piece__(self, target_piece):
+        """
+        Checks if the target piece is an enemy piece.
+        Parameters:
+        target_piece (Piece or None): The piece at the destination, or None if the square is empty.
+        Returns:
+        bool: True if the target piece is an enemy, False if it is an ally or the square is empty.
+        """
+        return target_piece is not None and target_piece.get_color() != self.get_color()

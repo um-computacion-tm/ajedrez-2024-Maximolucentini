@@ -1,10 +1,7 @@
 import sys
 import os
 
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-
 
 import unittest
 from game.chess import Chess
@@ -14,118 +11,140 @@ from game.king import King
 
 class TestChess(unittest.TestCase):
     def setUp(self):
-        """Configura un juego de ajedrez antes de cada prueba"""
-        self.chess_game = Chess()
+        """
+        Sets up a chess game before each test.
+        Initializes a new Chess instance.
+        """
+        self.__chess_game__ = Chess()
 
     def test_initialize_pieces(self):
-        """Verifica que las piezas estén correctamente posicionadas al inicio del juego"""
-        board = self.chess_game.board
+        """
+        Verifies that the pieces are correctly positioned at the start of the game.
+        Checks the initial placement of pawns and kings.
+        """
+        board = self.__chess_game__.__board__
 
-        # Verificar peones blancos
+        """Verify white pawns"""
         for col in range(8):
             self.assertIsInstance(board.get_piece(6, col), Pawn)
             self.assertEqual(board.get_piece(6, col).get_color(), "WHITE")
 
-        # Verificar peones negros
+        """Verify black pawns"""
         for col in range(8):
             self.assertIsInstance(board.get_piece(1, col), Pawn)
             self.assertEqual(board.get_piece(1, col).get_color(), "BLACK")
 
-        # Verificar reyes
+        """Verify kings"""
         self.assertIsInstance(board.get_piece(7, 4), King)
         self.assertEqual(board.get_piece(7, 4).get_color(), "WHITE")
         self.assertIsInstance(board.get_piece(0, 4), King)
         self.assertEqual(board.get_piece(0, 4).get_color(), "BLACK")
 
     def test_switch_turn(self):
-        """Prueba que los turnos alternen correctamente"""
-        self.assertEqual(self.chess_game.current_turn, "WHITE")
-        self.chess_game.switch_turn()
-        self.assertEqual(self.chess_game.current_turn, "BLACK")
-        self.chess_game.switch_turn()
-        self.assertEqual(self.chess_game.current_turn, "WHITE")
+        """
+        Tests that the turns alternate correctly between players.
+        """
+        self.assertEqual(self.__chess_game__.__current_turn__, "WHITE")
+        self.__chess_game__.__switch_turn__()
+        self.assertEqual(self.__chess_game__.__current_turn__, "BLACK")
+        self.__chess_game__.__switch_turn__()
+        self.assertEqual(self.__chess_game__.__current_turn__, "WHITE")
 
     def test_is_valid_turn(self):
-        """Verifica si se está moviendo la pieza del jugador correcto"""
-        board = self.chess_game.board
+        """
+        Verifies that the correct player is moving their piece.
+        """
+        board = self.__chess_game__.__board__
         white_pawn = board.get_piece(6, 0)
         black_pawn = board.get_piece(1, 0)
 
-        self.assertTrue(self.chess_game.is_valid_turn(white_pawn))  # Turno blanco
-        self.chess_game.switch_turn()
-        self.assertTrue(self.chess_game.is_valid_turn(black_pawn))  # Turno negro
+        self.assertTrue(self.__chess_game__.__is_valid_turn__(white_pawn))  # White's turn
+        self.__chess_game__.__switch_turn__()
+        self.assertTrue(self.__chess_game__.__is_valid_turn__(black_pawn))  # Black's turn
 
     def test_make_move_valid(self):
-        """Prueba que un movimiento válido se ejecute correctamente"""
-        result, message = self.chess_game.make_move((6, 0), (5, 0))  # Mover un peón blanco hacia adelante
+        """
+        Tests that a valid move is executed correctly.
+        Moves a white pawn forward and verifies the board state.
+        """
+        result, message = self.__chess_game__.make_move((6, 0), (5, 0))  
+        """Move white pawn forward"""
         self.assertTrue(result)
-        self.assertEqual(message, "WHITE ♙ se movió de (6, 0) a (5, 0)")
-        self.assertIsInstance(self.chess_game.board.get_piece(5, 0), Pawn)
-        self.assertIsNone(self.chess_game.board.get_piece(6, 0))
+        self.assertEqual(message, "WHITE ♙ moved from (6, 0) to (5, 0)")
+        self.assertIsInstance(self.__chess_game__.__board__.get_piece(5, 0), Pawn)
+        self.assertIsNone(self.__chess_game__.__board__.get_piece(6, 0))
 
     def test_make_move_invalid(self):
-        """Prueba que un movimiento inválido no se ejecute"""
-        # Mover el peón blanco desde a2 a a4 (movimiento válido)
-        result, message = self.chess_game.make_move((6, 0), (4, 0))
+        """
+        Tests that an invalid move is not executed.
+        Tries to make an invalid move after a valid one and checks the response.
+        """
+        """Move white pawn from a2 to a4 (valid move)"""
+        result, message = self.__chess_game__.make_move((6, 0), (4, 0))
         self.assertTrue(result)
 
-        # Cambiar de turno para mover una pieza negra y luego intentar un movimiento inválido
-        self.chess_game.switch_turn()
+        """Switch turn and attempt invalid move"""
+        self.__chess_game__.__switch_turn__()
 
-        # Intentar mover el mismo peón blanco desde a4 a a6 (movimiento inválido)
-        result, message = self.chess_game.make_move((4, 0), (2, 0))  # Movimiento inválido
+        """Try to move the same white pawn from a4 to a6 (invalid move)"""
+        result, message = self.__chess_game__.make_move((4, 0), (2, 0))  
+        """Invalid move"""
         self.assertFalse(result)
-        self.assertEqual(message, "Movimiento inválido.")
-
+        self.assertEqual(message, "Invalid move.")
 
     def test_end_game_by_agreement(self):
-        """Prueba que el juego pueda finalizar por acuerdo mutuo"""
-        self.chess_game.end_game_by_agreement()
-        self.assertTrue(self.chess_game.is_game_over)
+        """
+        Tests that the game can end by mutual agreement between players.
+        """
+        self.__chess_game__.end_game_by_agreement()
+        self.assertTrue(self.__chess_game__.__is_game_over__)
 
     def test_check_end_conditions(self):
-     """Prueba las condiciones de final de juego (cuando un jugador se queda sin piezas)"""
-     # Eliminar todas las piezas negras
-     for i in range(8):
-        self.chess_game.board.set_piece(1, i, None)  # Elimina los peones negros
-     # Eliminar el resto de piezas negras
-     self.chess_game.board.set_piece(0, 0, None)  # Torre negra
-     self.chess_game.board.set_piece(0, 1, None)  # Caballo negro
-     self.chess_game.board.set_piece(0, 2, None)  # Alfil negro
-     self.chess_game.board.set_piece(0, 3, None)  # Reina negra
-     self.chess_game.board.set_piece(0, 4, None)  # Rey negro
-     self.chess_game.board.set_piece(0, 5, None)  # Alfil negro
-     self.chess_game.board.set_piece(0, 6, None)  # Caballo negro
-     self.chess_game.board.set_piece(0, 7, None)  # Torre negra
+        """
+        Tests the game end conditions (when a player has no pieces left).
+        Simulates the elimination of all pieces of one color and checks the end message.
+        """
+        """Remove all black pieces"""
+        for i in range(8):
+            self.__chess_game__.__board__.set_piece(1, i, None) # Remove black pawns
+        """Remove the rest of the black pieces"""
+        self.__chess_game__.__board__.set_piece(0, 0, None)  # Black rook
+        self.__chess_game__.__board__.set_piece(0, 1, None)  # Black knight
+        self.__chess_game__.__board__.set_piece(0, 2, None)  # Black bishop
+        self.__chess_game__.__board__.set_piece(0, 3, None)  # Black queen
+        self.__chess_game__.__board__.set_piece(0, 4, None)  # Black king
+        self.__chess_game__.__board__.set_piece(0, 5, None)  # Black bishop
+        self.__chess_game__.__board__.set_piece(0, 6, None)  # Black knight
+        self.__chess_game__.__board__.set_piece(0, 7, None)  # Black rook
 
-     # Verificar que no quedan piezas negras
-     black_pieces = self.chess_game.board.get_pieces("BLACK")
-     self.assertEqual(len(black_pieces), 0)  # Confirmar que todas las piezas negras fueron eliminadas
+        # Verify no black pieces are left
+        black_pieces = self.__chess_game__.__board__.get_pieces("BLACK")
+        self.assertEqual(len(black_pieces), 0)  # Confirm all black pieces were removed
 
-     game_over, message = self.chess_game.check_end_conditions()
-     self.assertTrue(game_over)
-     self.assertEqual(message, "Las piezas negras han sido eliminadas. ¡Ganan las blancas!")
+        game_over, message = self.__chess_game__.check_end_conditions()
+        self.assertTrue(game_over)
+        self.assertEqual(message, "Black pieces have been eliminated. White wins!")
 
-     # Eliminar todas las piezas blancas
-     self.setUp()  # Reiniciar el juego
-     for i in range(8):
-        self.chess_game.board.set_piece(6, i, None)  # Elimina los peones blancos
-     self.chess_game.board.set_piece(7, 0, None)  # Torre blanca
-     self.chess_game.board.set_piece(7, 1, None)  # Caballo blanco
-     self.chess_game.board.set_piece(7, 2, None)  # Alfil blanco
-     self.chess_game.board.set_piece(7, 3, None)  # Reina blanca
-     self.chess_game.board.set_piece(7, 4, None)  # Rey blanco
-     self.chess_game.board.set_piece(7, 5, None)  # Alfil blanco
-     self.chess_game.board.set_piece(7, 6, None)  # Caballo blanco
-     self.chess_game.board.set_piece(7, 7, None)  # Torre blanca
+        # Remove all white pieces
+        self.setUp()  # Reset the game
+        for i in range(8):
+            self.__chess_game__.__board__.set_piece(6, i, None)  # Remove white pawns
+        self.__chess_game__.__board__.set_piece(7, 0, None)  # White rook
+        self.__chess_game__.__board__.set_piece(7, 1, None)  # White knight
+        self.__chess_game__.__board__.set_piece(7, 2, None)  # White bishop
+        self.__chess_game__.__board__.set_piece(7, 3, None)  # White queen
+        self.__chess_game__.__board__.set_piece(7, 4, None)  # White king
+        self.__chess_game__.__board__.set_piece(7, 5, None)  # White bishop
+        self.__chess_game__.__board__.set_piece(7, 6, None)  # White knight
+        self.__chess_game__.__board__.set_piece(7, 7, None)  # White rook
 
-     # Verificar que no quedan piezas blancas
-     white_pieces = self.chess_game.board.get_pieces("WHITE")
-     self.assertEqual(len(white_pieces), 0)  # Confirmar que todas las piezas blancas fueron eliminadas
+        # Verify no white pieces are left
+        white_pieces = self.__chess_game__.__board__.get_pieces("WHITE")
+        self.assertEqual(len(white_pieces), 0)  # Confirm all white pieces were removed
 
-     game_over, message = self.chess_game.check_end_conditions()
-     self.assertTrue(game_over)
-     self.assertEqual(message, "Las piezas blancas han sido eliminadas. ¡Ganan las negras!")
+        game_over, message = self.__chess_game__.check_end_conditions()
+        self.assertTrue(game_over)
+        self.assertEqual(message, "White pieces have been eliminated. Black wins!")
 
 if __name__ == '__main__':
     unittest.main()
