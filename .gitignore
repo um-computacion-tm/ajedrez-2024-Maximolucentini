@@ -1,0 +1,4 @@
+# Ignorar la carpeta __pycache__ y todo su contenido
+__pycache__/
+venv/
+.coverage
