@@ -39,10 +39,10 @@ class TestPawn(unittest.TestCase):
         """
         Tests that a pawn can capture an enemy piece diagonally.
         """
-        # Move black pawn forward to allow capture
+        """Move black pawn forward to allow capture"""
         self.__board__.move_piece(1, 1, 3, 1)
         
-        # Move white pawn diagonally to capture the black pawn
+        """Move white pawn diagonally to capture the black pawn"""
         pawn = self.__board__.get_piece(6, 0)
         self.__board__.move_piece(6, 0, 4, 0)
         self.assertTrue(pawn.is_valid_piece_move(self.__board__, (4, 0), (3, 1)))
@@ -53,10 +53,10 @@ class TestPawn(unittest.TestCase):
         """
         pawn = self.__board__.get_piece(1, 0)
         
-        # Invalid move: diagonal without capture
+        """Invalid move: diagonal without capture"""
         self.assertFalse(pawn.is_valid_piece_move(self.__board__, (1, 0), (2, 1)))
         
-        # Invalid move: moving backward
+        """Invalid move: moving backward"""
         self.assertFalse(pawn.is_valid_piece_move(self.__board__, (1, 0), (0, 0)))
 
 if __name__ == '__main__':
