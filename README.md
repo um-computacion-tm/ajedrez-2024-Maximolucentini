@@ -38,7 +38,9 @@ Para poner en marcha el juego, necesitarás Docker instalado en tu sistema.
 
 # 1. Instalación de Docker:
 
-Si aún no tienes Docker instalado, puedes hacerlo ejecutando el siguiente comando (en distribuciones basadas en Debian/Ubuntu):'sudo apt install docker'
+Si aún no tienes Docker instalado, puedes hacerlo ejecutando el siguiente comando (en distribuciones basadas en Debian/Ubuntu):
+
+'sudo apt install docker'
 
 # 2. Clonar el repositorio:
 
@@ -51,6 +53,7 @@ Clona este repositorio en tu máquina local:
  ## . Construir la imagen de Docker:
 
 Ejecuta el siguiente comando para crear la imagen de Docker del juego:
+    
     'docker buildx build -t ajedrez-2024-maximolucentini'
 
  ## Correr los tests y el juego:
