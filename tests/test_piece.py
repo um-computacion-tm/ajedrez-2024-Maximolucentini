@@ -42,7 +42,7 @@ class TestPiece(unittest.TestCase):
         Tests that is_valid_destination returns True when the destination is within the board
         and not occupied by a piece of the same color.
         """
-        self.assertTrue(self.__piece__.is_valid_destination(self.__board__, (4, 4)))  # Test with a tuple
+        self.assertTrue(self.__piece__.is_valid_destination(self.__board__, (4, 4)))  
 
     def test_is_valid_destination_out_of_bounds(self):
         """
